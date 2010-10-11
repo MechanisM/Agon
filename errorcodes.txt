@@ -1,0 +1,3 @@
+com.error.failure.predis				A general failure in Predis. All predis errors are mapped to this error function vis class extention
+com.error.failure.template				A undefined error in the templating subsystem
+						read				The selected template could not be read
