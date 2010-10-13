@@ -1,6 +1,6 @@
 <?php
-	class post extends s {
-		public function showpage($name){
+	class post extends page {
+		public function showpost($name){
 			
 		}
 	}

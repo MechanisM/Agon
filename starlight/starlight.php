@@ -1,5 +1,5 @@
 <?php
-	class s {
+	class starlight {
 		public $func = "";
 		public $prams = "";
 		# Welcome to the s class. Here we will do most of the work that we need to get data from redis, format it, and then pass it on to the template class
@@ -16,10 +16,6 @@
 		
 		# Now we need to add a start function
 		public function start(){
-			# We need include some class extentions so we can do more stuff
-			require ("classes/starlight.page.php");
-			require ("classes/starlight.post.php");
-			require ("classes/starlight.static.php");
 			if($this->func and $this->prams) { # Check if we have a function that we need to run
 				switch($this->func){ # Switchboard for the functions in which we will call localized functions
 					case 'page': $this->showpage($this->prams); break;
