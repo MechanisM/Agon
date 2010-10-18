@@ -1,7 +1,8 @@
 <?php
 	class post extends page {
-		public function showpost($name){
-			
+		public function showpost($num){
+			echo "<pre>"._c("com.posts.".$num);
+			echo "\r\n"._c("com.posts.".$num.".data");
 		}
 	}
 ?>

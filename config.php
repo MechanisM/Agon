@@ -18,5 +18,6 @@
 		require ("starlight/classes/starlight.static.php");
 		
 		$s = new starlight();	# Start the basic classes
-		$s = new page();	# Start the sub classes
+			$s = new page();	# Start the sub classes
+			$s = new post();
 ?>
