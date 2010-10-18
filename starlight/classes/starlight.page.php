@@ -19,12 +19,17 @@
 			echo "<pre>Array:\r\n";
 			for($i = $min; $i < $max; $i++) {
 				if($posts[$i])
-					echo $posts[$i][1]."\r\n";
+					echo $posts[$i][1]."\r\n"; # Here we just tell the templatting class to do its stuff
+			}
+			# Check if need a go back button
+			if($num > 1) {
+				echo "\r\n<a href='?f=page/1'>Back</a>";
 			}
 			# Check if we have another page
 			if($max < intval(_c("com.posts.total"))) {
-				echo "\r\nAnother Page here";
+				echo "\r\n<a href='?f=page/2'>Next</a>";
 			}
+			
 		}
 	}
 ?>
