@@ -8,8 +8,8 @@
 		# To encode something with JSON, we need an array
 		$arr = array("title"=>$_POST['title']);
 		
-		$redis->set(("com.posts.".$id),json_encode($arr));	# Set the base data							com.posts.1
-		$redis->set("com.posts.".$id.".data",$_POST['body']); # Set the content			com.posts.1.content
+		$redis->set(("com.posts.post.".$id),json_encode($arr));	# Set the base data							com.posts.1
+		$redis->set("com.posts.post.".$id.".data",$_POST['body']); # Set the content			com.posts.1.content
 		$redis->set("com.posts.latest",$id);
 	}
 ?>
