@@ -18,9 +18,12 @@
 		public function start(){
 			if($this->func and $this->prams) { # Check if we have a function that we need to run
 				switch($this->func){ # Switchboard for the functions in which we will call localized functions
-					case 'page': $this->showpage($this->prams); break;
-					case 'post': $this->showpost($this->prams); break;
-					case 'static': $this->showstatic($this->prams); break;
+					case 'page': 
+						$this->showpage($this->prams); break;
+					case 'post':
+						$this->showpost($this->prams); break;
+					case 'static': 
+						$this->showstatic($this->prams); break;
 				}
 			} else { # Just do the generic list latest posts in the database
 				$this->showpage(1);

@@ -13,6 +13,7 @@
 	}
 	
 	require ("starlight/starlight.php");	# We need to include the system files
+	require ("starlight/classes/template.class.php");
 		require ("starlight/classes/starlight.page.php");	# Page listing library	
 		require ("starlight/classes/starlight.post.php");	# Single post
 		require ("starlight/classes/starlight.static.php");
