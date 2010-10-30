@@ -1,0 +1,497 @@
+@charset "UTF-8";
+
+    /*
+    Theme Name: little
+    Theme URI: 
+    Description: A simple & little theme
+    Author: Adair Cameron
+    Author URI: http://www.adaircameron.co.uk
+    version: 0.4
+    Tags: white, three-columns, fixed-width
+    */
+    /* basics */
+    *{margin:0; padding:0; background-image:url(wp-content/themes/little/background.gif); background-repeat:repeat;}
+    body {
+        font-family: arial, tahoma, sans-serif;
+        font-size: 8pt;
+        border-left:1px #eee solid;
+        border-right:1px #eee solid;
+        width:620px;
+        padding:10px;
+        margin-left:auto;
+        margin-right:auto;
+        }
+    h1 {font-size: 18pt;}
+    h2 {font-size: 14pt;}
+    h3 {font-size: 10pt;}
+    h4 {font-size: 9pt;}
+    img{ border:1px #eee solid; padding:5px; margin-left:10px; margin-right:10px}
+    img a{text-decoration:none;}
+    img.left{ float: left; margin-right:10px; margin-top:10px; margin-bottom:10px;}
+    img.right{ float: right; margin-left:10px; margin-top:10px; margin-bottom:10px;}
+    blockquote{
+        border-left:1px solid #A5ABAB;
+        margin:15px;
+        padding:0 12px 0 12px;
+        }
+    code{
+        font-family:"Courier New", Courier, monospace;
+        }
+    .aligncenter {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .alignleft {
+        float: left;
+    }
+    .alignright {
+        float: right;
+    }
+    a{
+        color:#006699;
+        }
+    a:hover{
+        color:#FFD300;
+        }
+
+    #container {
+        width:600px;
+        margin: 0 auto;
+        padding:0;
+        background:#fff;
+        color:#333;
+        overflow: hidden;
+        }
+    #header {
+        width:100%; 
+        height:100px;
+        color: #666; 
+        }
+    #header h2{
+        font:normal 20pt arial;
+        padding:0px 0 0 0px;
+        margin:0;
+        text-transform:uppercase;
+        }        
+    #header h2 a{color: #404040; text-decoration: none;}
+    #header h2 a:hover{color: #666; text-decoration: none;}
+    #header h3{
+        font:normal 10pt arial;
+        color:#333;
+        padding: 0 0 0 0px;
+        margin:0;	
+        }
+    #navigation{
+        height:60px;
+        text-transform:lowercase;
+    }
+    #menu {
+        font-family: arial;
+        font-size: 10px;
+        width:100%; 
+        overflow:hidden;
+    }
+    #menu ul {
+        margin:0;
+        padding:0;
+    }
+    #menu ul li {
+        list-style-type: none;
+        float:left;
+        margin: 0;
+        padding: 0;
+    }
+    #menu ul li a {
+        padding:0px 0px;
+        margin: 5px 5px;
+        color: #999;
+        display:block;
+        border-bottom:1px solid #999;
+        text-decoration:none;
+    }
+    #menu ul li a:hover {
+        color:#000;
+        border-bottom:1px solid #FFD300;
+    }
+    #submenu {
+        font-family: arial;
+        font-size: 10px;
+        width:100%; 
+        overflow:hidden;
+    }
+    #submenu ul {
+        margin:0;
+        padding:0;
+    }
+    #submenu ul li {
+        list-style-type: none;
+        float:left;
+        margin: 0;
+        padding: 0;
+    }
+    #submenu ul li a {
+        padding:0px 0px;
+        margin: 5px 5px;
+        color: #006699;
+        display:block;
+        border-bottom:1px solid #ccc;
+        text-decoration:none;
+    }
+    
+    #submenu ul li a:hover {
+        color:#000;
+        border-bottom:1px solid #FFD300;
+    }
+    
+    
+    /* content */
+    
+    
+    #content {
+        float: left;
+        width:600px;
+        overflow: hidden;
+        margin:0px;
+        }
+    
+    .post {
+        margin:0;
+        padding:0;
+        line-height: 20pt;
+        }
+        
+    .post h2{
+        font:normal 15px arial;
+        text-transform:uppercase;
+        padding-top:10px;
+        }
+    
+    .post h1{
+        font:normal 18px arial;
+        text-transform:uppercase;
+        padding-top:10px;
+        }
+        
+    .post h2 a{
+        font-size:18px;
+        color: #000;
+        text-decoration: none;
+        }
+        
+    .post h2 a:hover{
+        color: #777;
+        text-decoration: none;
+        }
+    
+    .post ul {
+        list-style:square;
+        padding-left:10px;}
+    
+    .post li {
+        list-style:square;
+        padding-left:10px;}
+    
+    .entry p{margin:12px 0;}
+    
+    .postmetadata{
+        clear: both;
+        background:#F7F7F7;
+        padding:6px;
+        margin: 20px 0;
+        }
+        
+    
+    .navigation {
+        font-size:8pt;
+        width:100%;
+        float:left;
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        }
+        
+    .alignleft a{float:left; margin:25px 0;}
+    .alignright a{float:right; margin:25px 0;}
+        
+    
+    
+    
+    /* left sidebar */
+    
+    #left {
+        width:299px;
+        float:left;
+        margin:0;
+        padding:0;
+        border-right: 1px solid #eee;
+        }
+    
+    #left h2{
+        font:normal 11pt arial, georgia, times;
+        color: #000;	
+        margin: 0;
+        padding: 0;
+    }
+    
+    #left label{
+        font:normal 11pt arial, georgia, times;
+        color: #000;	
+        margin: 0;
+        padding: 0;
+    }
+    
+    #left p {margin:0; padding: 0;}
+    
+    #left img {padding: 0; margin: 0;}
+    
+    #left ul {
+        margin:12px;
+        padding:0;
+        }
+    
+    #left ul li {
+        margin: 0;
+        padding: 0;
+        line-height:20px;
+        list-style-type: none;
+        }
+    
+    #left ul ul {
+        margin:5px 0;
+        padding: 0;
+    }
+    
+    #left ul ul li {
+        list-style-type: none;
+        }
+    
+    #left ul ul ul{
+        margin: 0;
+        padding: 0;
+    }
+    
+    #left ul ul ul li{
+        margin: 0 0 0 15px;
+        list-style-type: square;
+        color: #898989;
+    }
+    
+    
+    
+    /* right sidebar */
+    
+    #right{
+        width:300px;
+        float:right;
+        margin:0;
+        padding: 0;
+        }
+    
+    #right h2{
+        font:normal 11pt arial, georgia, times;
+        color: #000;	
+        margin: 0;
+        padding: 0;
+    }
+    
+    #right label{
+        font:normal 11pt arial, georgia, times;
+        color: #000;	
+        margin: 0;
+        padding: 0;
+    }
+    
+    #right p {margin:0; padding:0;}
+    
+    #right img {padding: 0; margin: 0;}
+    
+    #right ul {
+        margin:12px;
+        padding:0;
+        }
+    
+    #right ul li {
+        margin: 0;
+        padding: 0;
+        line-height: 20px;
+        list-style-type: none;
+        }
+    
+    #right ul ul {
+        margin:5px 0;
+        padding: 0;
+    }
+    
+    #right ul ul li {
+        list-style-type: none;
+        }
+    
+    #right ul ul ul{
+        margin: 0;
+        padding: 0;
+    }
+    
+    #right ul ul ul li{
+        margin: 0 0 0 15px;
+        list-style-type: square;
+        color: #898989;
+    }
+    
+    
+    
+    /* comments */
+    
+    
+    #commentform{
+        background:#fff;
+        margin:0;
+        padding:0;
+        }
+        
+    #commentform p{
+        color: #000;
+        }
+        
+    #commentform a{color: #000; text-decoration: none; border-bottom: 1px dotted #465D71;line-height: 14pt;}
+        
+    #commentform h3{
+        font-family: arial;
+        font-size: 10pt;
+        font-weight: 300;
+        color: #000;
+        margin:0;
+        padding:0;
+        }
+        
+    #comment{
+        width:595px;
+        }
+    
+    #author, #email, #url, #comment, #submit{
+        background: #fff;
+        font-family: arial;
+        font-size: 8pt;
+        margin:5px 5px 0 0;
+        padding:0;
+        border: 1px solid #eee;
+        }
+        
+    #submit{margin:5px 5px 0 0;
+            padding:10px;
+            background:#FFD300;
+            font-weight:bold;
+    }
+    
+    #comments{margin:0; padding:0}
+        
+    ol.commentlist {list-style-type: none; margin:0; padding:0;}
+    
+    .avatar{float:left; margin:0 12px 0 0;}
+    
+    ol.commentlist li {
+        background: #fff;
+        margin:10px 0;
+        padding:5px 0 5px 10px;
+        list-style-type:none;
+        }
+    
+    ol.commentlist li.alt {background: #eee;}
+    ol.commentlist li p {margin: 6px 0 6px 0; padding: 0 12px 0 0; line-height: 14pt;}
+    
+    ol.commentlist a {color:#000;}
+    
+    cite {
+        font-family: arial, verdana, tahoma;
+        font-size: 9pt;
+        font-weight: bold;
+        font-style: normal;
+        }
+        
+    cite a{color: #000; text-decoration: none; border-bottom: 1px dotted #465D71;}
+    
+    
+    
+    
+    /* search */
+    
+    #searchform{
+        padding:0;
+        margin:14px 0;
+        }
+    
+    #searchform input#s{
+        margin:0;
+        border:1px solid #000;
+        padding:2px;
+        }
+    
+    
+    
+    
+    /* misc */
+    
+    img.centered {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        }
+    
+    img.alignright {
+        padding: 4px;
+        margin: 0 0 2px 7px;
+        display: inline;
+        }
+    
+    img.alignleft {
+        padding: 4px;
+        margin: 0 7px 2px 0;
+        display: inline;
+        }
+    
+    .alignright {
+        float: right;
+        }
+    
+    .alignleft {
+        float: left
+        }
+        
+    .wp-caption {
+       border: 1px solid #ddd;
+       text-align: center;
+       background-color: #f3f3f3;
+       padding-top: 4px;
+       margin: 10px;
+       /* optional rounded corners for browsers that support it */
+       -moz-border-radius: 3px;
+       -khtml-border-radius: 3px;
+       -webkit-border-radius: 3px;
+       border-radius: 3px;
+    }
+    
+    .wp-caption img {
+       margin: 0;
+       padding: 0;
+       border: 0 none;
+    }
+    
+    .wp-caption p.wp-caption-text {
+       font-size: 11px;
+       line-height: 17px;
+       padding: 0 4px 5px;
+       margin: 0;
+    }
+    
+    
+    
+    
+    /* footer */
+    
+    #footer {
+        background:#eee;
+        clear: both;
+        width: 100%;
+        }
+        
+    #footer p{padding:10px 15px;margin: 0; color: #000; text-align:right;}
