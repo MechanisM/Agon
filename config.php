@@ -12,13 +12,8 @@
 		return $redis->get($j);
 	}
 	
-	require ("starlight/starlight.php");	# We need to include the system files
-	require ("starlight/classes/template.class.php");
-		require ("starlight/classes/starlight.page.php");	# Page listing library	
-		require ("starlight/classes/starlight.post.php");	# Single post
-		require ("starlight/classes/starlight.static.php");
-		
-		$s = new starlight();	# Start the basic classes
-			$s = new page();	# Start the sub classes
-			$s = new post();
+	require ("starlight/starlight.php");	# We need to include the system files		
+	$s = new starlight();	# Start the basic classes
+	require_once 'starlight/classes/Savant3.php';
+	$tpl = new Savant3();
 ?>
