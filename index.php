@@ -9,8 +9,5 @@
 		$s->addvar($_GET['f']);
 	
 	$s->start();
-	
-	$t->select("main");
-	$t->replace("title","This is the title");
-	$t->publish();
+
 ?>
