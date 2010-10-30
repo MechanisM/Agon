@@ -29,5 +29,40 @@
 				$this->showpage(1);
 			}
 		}
+		# This is the function to show the post list
+		public function showpage($num){
+			global $redis, $tpl;
+			
+			# First we need to add the post ids to an array so we make sure we have valid posts that we can access
+			$posts = array();
+			$latest = intval(_c("com.posts.latest"));
+			for($i = $latest; $i > 0; $i--) {
+				$return  = _c("com.posts.".$i);
+				if($return)
+					$posts[] = array($i,$return);
+			}
+			
+			# If we have page 1, we need to show posts 0-4 from the array
+			$limit = _c("com.posts.list"); # The number to show per page
+
+			$tpl->posts = array(
+				(( $num * $limit ) - $limit), 
+				(( $num * $limit )),
+				$posts
+			);
+			$tpl->nav = array(
+				($max < intval(_c("com.posts.total")) ? true : false), # Back
+				($num > 1 ? true : false) # Next?
+			);
+			$tpl->display("starlight/templates/default/posts.tpl.php");
+			
+			
+		}
+		
+		
+		public function showpost($num){
+			echo "<pre>"._c("com.posts.post.".$num);
+			echo "\r\n"._c("com.posts.post.".$num.".data");
+		}
 	}
 ?>
