@@ -39,7 +39,7 @@
 			for($i = $latest; $i > 0; $i--) {
 				$return  = _c("com.posts.".$i);
 				if($return)
-					$posts[] = array($i,$return);
+					$posts[] = array($i,$return,_c("com.posts.".$i.".data"));
 			}
 			
 			# If we have page 1, we need to show posts 0-4 from the array
