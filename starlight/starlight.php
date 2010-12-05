@@ -1,9 +1,40 @@
 <?php
+# Copyright (c) 2010, Colum McGaley
+# All rights reserved.
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  /**
+	* Main class for working with the system
+	*
+	* @copyright 2010 Colum McGaley
+	* @license GUN Public Licence
+	* @version Release: @package_version@
+	* @link http://archandel.io/redir/starlight
+	* @since Class available since Release 0.0.1
+	*/ 
 	class starlight {
 		public $func = "";
 		public $prams = "";
-		# Welcome to the s class. Here we will do most of the work that we need to get data from redis, format it, and then pass it on to the template class
-		# First we need to work on the add var function, which will be triggered if we have a f var in the url. 
+		
+	  /**
+		* This function is used to define the current function for the system
+		*
+		* @param URI $v The request URi 
+		* @throws Nothing
+		* @return Nothing
+		*/ 
 		public function addvar($v) {
 			if($v) {	# Make sure we actually have data to read, if we dont, we dont want errors to displayed.
 				# The data is in the format of ?f=page/2 or ?f=post/3 or ?f=static/page name
@@ -14,21 +45,32 @@
 			}
 		}
 		
-		# Now we need to add a start function
+	  /**
+		* Function to start the system, and does all the processing
+		*
+		* @return Output
+		*/ 
 		public function start(){
 			if($this->func and $this->prams) { # Check if we have a function that we need to run
 				switch($this->func){ # Switchboard for the functions in which we will call localized functions
 					case 'page': 
-						$this->showpage($this->prams); break;
+						$this->showpage($this->prams); 		break;
 					case 'post':
-						$this->showpost($this->prams); break;
+						$this->showpost($this->prams); 		break;
 					case 'static': 
-						$this->showstatic($this->prams); break;
+						$this->showstatic($this->prams); 	break;
 				}
 			} else { # Just do the generic list latest posts in the database
 				$this->showpage(1);
 			}
 		}
+	  /**
+		* Function called to show the posts for the inputted page number
+		*
+		* @param integer $num The current page number
+		* @throws Predis_Error If a redis query fails
+		* @return Output of query
+		*/ 
 		# This is the function to show the post list
 		public function showpage($num){
 			global $redis, $tpl;
@@ -38,10 +80,9 @@
 			$latest = intval(_c("com.posts.latest"));
 			for($i = $latest; $i > 0; $i--) {
 				$return  = _c("com.posts.".$i);
-				if($return)
+				if($return != "")
 					$posts[] = array($i,$return,_c("com.posts.".$i.".data"));
 			}
-			
 			# If we have page 1, we need to show posts 0-4 from the array
 			$limit = _c("com.posts.list"); # The number to show per page
 
@@ -55,14 +96,18 @@
 				($num > 1 ? true : false) # Next?
 			);
 			$tpl->display("starlight/templates/default/posts.tpl.php");
-			
-			
 		}
 		
 		
 		public function showpost($num){
-			echo "<pre>"._c("com.posts.post.".$num);
-			echo "\r\n"._c("com.posts.post.".$num.".data");
+			global $tpl;
+			$meta = json_decode(_c("com.posts.".$num));
+			$tpl->meta = array(
+					'id'	=> $num,
+					'title' => $meta->title
+				);
+			$tpl->body = _c("com.posts.".$num.".data");
+			$tpl->display("starlight/templates/default/page.tpl.php");
 		}
 	}
 ?>

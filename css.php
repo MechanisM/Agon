@@ -1,20 +1,10 @@
 <?php
-	class test {
-		var $str = "Testing Var<br />";
-		function TestA() {
-			echo "Test A function online<br />";
-		}
-	}
-	
-	class testb extends test {
-		function TestC() {
-			echo "Test B function online<br />";
-			echo $this->str;
-		}
-	}
-	
-	$test->TestA();
-	echo "<br /><hr /><br />";
-	$test->test2 = new testb();
-	$test->test2->TestC();
+$single_server = array(
+	'host'     => '127.0.0.1', 
+	'port'     => 6379, 
+	'database' => 10
+);
+require ("starlight/classes/predis/Predis.php");	# Make sure we have the interface online
+$redis = new Predis_Client($single_server);		# Start the Redis connection
+var_dump($redis->lrange("test",0,3));
 ?>

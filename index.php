@@ -5,7 +5,7 @@
 	
 	require("config.php");
 	
-	if($_GET['f'])
+	if(isset($_GET['f']))
 		$s->addvar($_GET['f']);
 	
 	$s->start();
