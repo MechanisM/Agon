@@ -1,0 +1,13 @@
+Terms
+	Personal
+		Free	- Linkback required, visiable on every page
+		$10		- No linkback for sites under 10k hits
+		$20		- No linkback for sites over 10k
+	
+	Develoment
+		$50		- Linkback required, but can be used in resold service (Website develoment, etc...)
+		$70		- Same as above, but without the linkback
+	
+	Corporate
+		$80		- Corporate site with under 100k views/month
+		
