@@ -77,14 +77,14 @@
 			
 			# First we need to add the post ids to an array so we make sure we have valid posts that we can access
 			$posts = array();
-			$latest = intval(_c("com.posts.latest"));
+			$latest = intval(_c("slight.post.latest"));
 			for($i = $latest; $i > 0; $i--) {
-				$return  = _c("com.posts.".$i);
+				$return  = _c("slight.post.".$i);
 				if($return != "")
-					$posts[] = array($i,$return,_c("com.posts.".$i.".data"));
+					$posts[] = array($i,$return,_c("slight.post.".$i.".data"));
 			}
 			# If we have page 1, we need to show posts 0-4 from the array
-			$limit = _c("com.posts.list"); # The number to show per page
+			$limit = _c("slight.post.list"); # The number to show per page
 
 			$tpl->posts = array(
 				(( $num * $limit ) - $limit), 
@@ -92,7 +92,7 @@
 				$posts
 			);
 			$tpl->nav = array(
-				($max < intval(_c("com.posts.total")) ? true : false), # Back
+				($max < intval(_c("slight.post.total")) ? true : false), # Back
 				($num > 1 ? true : false) # Next?
 			);
 			$tpl->display("starlight/templates/default/posts.tpl.php");
@@ -101,12 +101,11 @@
 		
 		public function showpost($num){
 			global $tpl;
-			$meta = json_decode(_c("com.posts.".$num));
 			$tpl->meta = array(
 					'id'	=> $num,
-					'title' => $meta->title
+					'title' => $redis->lindex(('slight.post'.$id),1);
 				);
-			$tpl->body = _c("com.posts.".$num.".data");
+			$tpl->body = $redis->lindex(('slight.post'.$id),1);
 			$tpl->display("starlight/templates/default/page.tpl.php");
 		}
 	}
