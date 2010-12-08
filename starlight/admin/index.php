@@ -32,7 +32,6 @@
 			<?php
 				if(isset($_GET['do']) and $_GET['do'] == 'new-post'):
 			?>
-				<div id="content" class="container_16 clearfix">
 					<form method="post" action="?do=process">
 						<div class="grid_16">
 							<h2>Submit New Post</h2>
@@ -65,14 +64,12 @@
 								<textarea class="big" name="body"></textarea>
 							</p>
 							<p class="submit">
-								<imput type="hidden" value="new-post" name="method" />
+								<input type="hidden" value="new-post" name="method" />
 								<input type="reset" value="Reset" />
 								<input type="submit" value="Post" />
 							</p>
 						</div>
 					</form>
-					
-				</div>
 			<?php
 				else:
 			?>
