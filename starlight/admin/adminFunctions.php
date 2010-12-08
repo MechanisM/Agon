@@ -1,6 +1,8 @@
 <?php
 
 	function doAddNewPage() {
+		global $redis; 
+		
 		$err = array();
 		if($_POST['title'] == "" or $_POST['title'] == " ")
 			$err[] = "No Title Entered, which you need to do";
