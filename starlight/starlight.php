@@ -81,7 +81,7 @@
 			for($i = $latest; $i > 0; $i--) {
 				$return  = _c("slight.post.".$i);
 				if($return != "")
-					$posts[] = array($i,$return,_c("slight.post.".$i.".data"));
+					$posts[] = $redis->lrange(('slight.post.'.$i),0,9);
 			}
 			# If we have page 1, we need to show posts 0-4 from the array
 			$limit = _c("slight.post.list"); # The number to show per page
@@ -103,7 +103,7 @@
 			global $tpl;
 			$tpl->meta = array(
 					'id'	=> $num,
-					'title' => $redis->lindex(('slight.post'.$id),1);
+					'title' => $redis->lindex(('slight.post'.$id),1)
 				);
 			$tpl->body = $redis->lindex(('slight.post'.$id),1);
 			$tpl->display("starlight/templates/default/page.tpl.php");
