@@ -9,8 +9,9 @@
 		if($_POST['body'] == "" or $_POST['body'] == " ")
 			$err[] = "You need to enter a body";
 		
-		if(count($err) > 0)
-			return $err;
+		if(count($err)) {
+			die(var_dump($err));
+		}
 		
 		if($_POST['slug'])
 			$slug = strtolower(str_replace(' ', '-', $_POST['slug']));
@@ -30,7 +31,7 @@
 	}
 
 	function adminDoProcess() {
-		if($_POST['method'] == 'new-page')
+		if($_POST['method'] == 'new-post')
 			doAddNewPage();
 	}
 ?>
