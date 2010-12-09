@@ -20,9 +20,11 @@
 		else
 			$slug = strtolower(str_replace(' ', '-', $_POST['title']));
 			
-				# Get the latest ID and add one to it
-		$id = intval(_c("slight.post.latest")) + 1;
-			$redis->set("slight.post.latest",$id);
+		# We can not rely on the count() because there might be spaces
+		$a = $redis->keys('slight.post.*');
+		$c = count($a);
+
+		$id = $c + 1;
 
 		$redis->rpush(("slight.post.".$id),$_POST['title']);
 		$redis->rpush(("slight.post.".$id),$_POST['body']);

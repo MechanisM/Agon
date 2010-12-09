@@ -76,15 +76,10 @@
 			global $redis, $tpl;
 			
 			# First we need to add the post ids to an array so we make sure we have valid posts that we can access
-			$posts = array();
-			$latest = intval(_c("slight.post.latest"));
-			for($i = $latest; $i > 0; $i--) {
-				$return  = _c("slight.post.".$i);
-				if($return != "")
-					$posts[] = $redis->lrange(('slight.post.'.$i),0,9);
-			}
+			$posts = $redis->keys('slight.post.*');
+			
 			# If we have page 1, we need to show posts 0-4 from the array
-			$limit = _c("slight.post.list"); # The number to show per page
+			$limit = _c("slight.config.list"); # The number to show per page
 
 			$tpl->posts = array(
 				(( $num * $limit ) - $limit), 
@@ -92,7 +87,7 @@
 				$posts
 			);
 			$tpl->nav = array(
-				($max < intval(_c("slight.post.total")) ? true : false), # Back
+				($max < count($posts)) ? true : false), # Back
 				($num > 1 ? true : false) # Next?
 			);
 			$tpl->display("starlight/templates/default/posts.tpl.php");
