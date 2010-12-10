@@ -32,6 +32,7 @@
 		$redis->rpush(("slight.post.".$id),$_POST['body']);
 		
 		$redis->set(("slight.slug.".$slug),$id);
+		$redis->set(("slight.slug.".$id),$slug);
 		
 		header("Location: ?do=home&secuess=new-post");
 	}
