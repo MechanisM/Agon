@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
     <head profile="http://gmpg.org/xfn/11">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title><?php echo _c("com.site.name"); ?></title>
+    <title><?php echo _c("slight.config.name"); ?></title>
     <link rel="stylesheet" href="http://wp-themes.com/wp-content/themes/little/style.css" type="text/css" media="screen" />
     </head>
     <body>
@@ -16,7 +16,7 @@
         		</div>
         	</div><!-- End navigation -->
         	<div id="header">
-                <h2><a href="/"><?php echo _c("com.site.name"); ?></a></h2>
-                <h3><?php echo _c("com.site.desc"); ?></h3>
+                <h2><a href="/"><?php echo _c("slight.config.name"); ?></a></h2>
+                <h3><?php echo _c("slight.config.desc"); ?></h3>
         	</div>
             <div id="content">
