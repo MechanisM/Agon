@@ -26,7 +26,9 @@
 
 		$id = $c + 1;
 
+		$redis->rpush(("slight.post.".$id),$id);
 		$redis->rpush(("slight.post.".$id),$_POST['title']);
+		$redis->rpush(("slight.post.".$id),'d-m-y');
 		$redis->rpush(("slight.post.".$id),$_POST['body']);
 		
 		$redis->set(("slight.slug.".$slug),$id);
