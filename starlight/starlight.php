@@ -79,7 +79,7 @@
 			$posts = $redis->keys('slight.post.*');
 			
 			# If we have page 1, we need to show posts 0-4 from the array
-			$limit = _c("slight.config.list"); # The number to show per page
+			$limit = $redis->get("slight.config.list"); # The number to show per page
 
 			$tpl->posts = array(
 				(( $num * $limit ) - $limit), 
@@ -87,7 +87,7 @@
 				$posts
 			);
 			$tpl->nav = array(
-				($max < count($posts)) ? true : false), # Back
+				(($num * $limit) < count($posts) ? true : false), # Back
 				($num > 1 ? true : false) # Next?
 			);
 			$tpl->display("starlight/templates/default/posts.tpl.php");
