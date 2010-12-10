@@ -37,8 +37,30 @@
 		header("Location: ?do=home&secuess=new-post");
 	}
 
+	function doEditPost() {
+		gloal $redis;
+		
+	}
+
 	function adminDoProcess() {
 		if($_POST['method'] == 'new-post')
 			doAddNewPage();
+		else if ($_POST['method'] == 'edit-post')
+			doEditPost();
+	}
+	
+	# Login in function
+	function adminDoLogin() {
+		if($_POST['username'] and $_POST['password']) {
+			$users = $redis->lrange('slight.config.users',0,2); # get all of them. TODO!!!
+			if($users[0] != $_POST['username'] or $user['password'] != $_POST['password']) {
+				echo "<p style='color:red'>The inputted information does not match</p>";
+			} else {
+				$_SESSION['logged'] = true;
+				header("Location: ?do=");
+			}
+		}
+		echo '<form method="post" action=""><p><label for="username">Username: </label>input type="text" name="username" id="username" /></p><p><label for="password">Password: </label><input type="password" name="password" id="password" /></p><p><input type="submit" name="button" id="button" value="Submit" /></p></form>
+		';
 	}
 ?>
