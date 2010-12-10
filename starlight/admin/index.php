@@ -44,7 +44,7 @@
 						</div>
 						<div class="grid_5">
 							<p>
-								<label for="title">Slug <small>Must contain alpha-numeric characters.</small></label>
+								<label for="slug">Slug <small>Must contain alpha-numeric characters.</small></label>
 								<input type="text" name="slug" />
 							</p>							
 						</div>
@@ -70,6 +70,46 @@
 							</p>
 						</div>
 					</form>
+			<?php
+				elseif(isset($_GET['do']) and $_GET['do'] == 'manage'):
+			?>
+			<div class="grid_16">
+				<table>
+					<thead>
+						<tr>
+							<th>Post Name</th>
+							<th>Slug</th>
+							<th>Date</th>
+							<th colspan="2" width="10%">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+<?php
+	$posts = $redis->keys('slight.post.*');
+	for($i = count($posts); $i >= 0; $i--):
+		if(isset($posts[$i])):
+			$q = (object) array(
+				'id' 	=> _i($posts[$i],0),
+				'title' => _i($posts[$i],1), 
+				'date' 	=> _i($posts[$i],2), 
+				'slug' 	=> gS(_i($posts[$i],0))
+			);
+?>
+	<tr>
+		<td><?php echo $q->title; ?></td>
+		<td><?php echo $q->slug; ?></td>
+		<td><?php echo $q->date; ?></td>
+		<td><a href="?do=edit&id=<?php echo $q->id; ?>" class="edit">Edit</a></td>
+		<td><a href="?do=del&did=<?php echo $q->id; ?>" class="delete">Delete</a></td>
+	</tr>
+<?php
+		endif;
+	endfor;
+?>
+</tbody>
+
+				</table>
+			</div>
 			<?php
 				else:
 			?>
