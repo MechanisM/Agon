@@ -14,7 +14,7 @@
 				<h2><a href="?f=post/<?php echo gS($info->id); ?>" rel="bookmark"><?php echo $info->title; ?></a></h2>
 			    <small><?php echo $info->date; ?></small>
 				<div class="entry">
-					<?php echo $this->posts[2][$i][2]; ?>
+					<?php echo $info->body; ?>
 				</div>
 				<p class="postmetadata">
 					Posted in <a href="http://wp-themes.com/?cat=6" title="View all posts in First Child Category" rel="category">First Child Category</a> | <span>Comments Off</span>
