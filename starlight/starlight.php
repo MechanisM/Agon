@@ -95,12 +95,13 @@
 		
 		
 		public function showpost($num){
-			global $tpl;
-			$tpl->meta = array(
-					'id'	=> $num,
-					'title' => $redis->lindex(('slight.post'.$id),1)
-				);
-			$tpl->body = $redis->lindex(('slight.post'.$id),1);
+			global $redis, $tpl;
+			
+			$id = gS($num);
+			$tpl->id = $id;
+			$tpl->slug = $num;
+			$tpl->title = $redis->lindex(('slight.post.'.$id),1);
+			$tpl->body =  $redis->lindex(('slight.post.'.$id),3);
 			$tpl->display("starlight/templates/default/page.tpl.php");
 		}
 	}
