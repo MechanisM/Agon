@@ -8,7 +8,7 @@
 			<?php echo $this->body; ?>
 		</div>
 		<div>
-			Comments go here
+			<?php gC($this->id); ?>
 		</div>
 	</div>
 
