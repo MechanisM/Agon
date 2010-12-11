@@ -21,10 +21,11 @@
 	* @copyright 2010 Colum McGaley
 	* @license GUN Public Licence
 	* @version Release: @package_version@
-	* @link http://archandel.io/redir/starlight
+	* @link http://(domain)/redir/starlight
 	* @since Class available since Release 0.0.1
 	*/ 
 	class starlight {
+		
 		public $func = "";
 		public $prams = "";
 		
@@ -92,8 +93,13 @@
 			);
 			$tpl->display("starlight/templates/default/posts.tpl.php");
 		}
-		
-		
+	/**
+		* Function called to show a single post
+		*
+		* @param string $num The slug of the post
+		* @throws Predis_Error If a redis query fails
+		* @return Displays the theme
+		*/ 
 		public function showpost($num){
 			global $redis, $tpl;
 			
