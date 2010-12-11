@@ -11,13 +11,16 @@
 			$err[] = "You need to enter a site description";
 			
 		if(count($err) == 0){
-			$redis->set('slight.config.name',$_POST['sname']);
-			$redis->set('slight.config.desc',$_POST['sdesc']);
-			
+			$c = array(
+				'slight.config.name'	=> $_POST['sname'],
+				'slight.config.desc'	=> $_POST['sname'],
+				'slight.config.list'	=> $_POST['ppp'],
+				'slight.config.teplate'	=> 'default'
+			);
+			$redis->mset($c);
 			$redis->rpush('slight.config.user',$_POST['username']);
 			$redis->rpush('slight.config.user',md5($_POST['password']));
-			
-			$redis->set('slight.config.list',$_POST['ppp']);
+
 			die("Installed, unless you see errors");
 		} else
 			echo "Errors";
