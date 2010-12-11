@@ -18,6 +18,10 @@
 	function gS($s) {
 		return _c("slight.slug.".$s);
 	}
+	function gC($i){
+		global $s;
+		$s->readcomments($i);
+	}
 	
 	require ("starlight/starlight.php");	# We need to include the system files		
 	$s = new starlight();	# Start the basic classes
