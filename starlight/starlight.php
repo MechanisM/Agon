@@ -38,8 +38,6 @@
 		*/ 
 		public function addvar($v) {
 			if($v) {	# Make sure we actually have data to read, if we dont, we dont want errors to displayed.
-				# The data is in the format of ?f=page/2 or ?f=post/3 or ?f=static/page name
-				# $v will be page/3 or something like that
 				$v = explode("/",$v); # Here we will seperate page and the number
 				$this->func = $v[0]; # Set the function to the requested function
 				$this->prams = $v[1]; # Here we set the prameters to the id or page name that we want. Maybe a user profile?
@@ -91,7 +89,7 @@
 				(($num * $limit) < count($posts) ? true : false), # Back
 				($num > 1 ? true : false) # Next?
 			);
-			$tpl->display("starlight/templates/default/posts.tpl.php");
+			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/posts.tpl.php");
 		}
 	/**
 		* Function called to show a single post
@@ -108,7 +106,25 @@
 			$tpl->slug = $num;
 			$tpl->title = $redis->lindex(('slight.post.'.$id),1);
 			$tpl->body =  $redis->lindex(('slight.post.'.$id),3);
-			$tpl->display("starlight/templates/default/page.tpl.php");
+			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
+		}
+		
+		public function readcomments($id){
+			global $redis, $tpl;
+			
+			$comments = $redis->keys('slight.comments.'.$id.'.*');
+			# We have an array of comments, which is from 1st to last
+			if($redis->get('slight.config.comment-list') == 'true')
+				$comments = array_reverse($comments);
+				
+			for($i = 0; $i < count($comments); $i++){
+				$tpl->num = $i;
+				$tpl->name = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],0);
+				$tpl->date = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],2);
+				$tpl->email = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],3);
+				$tpl->body = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],4);
+				$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comment.single.tpl.php");
+			}
 		}
 	}
 ?>
