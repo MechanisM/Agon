@@ -1,3 +1,0 @@
-CHECK Redis_Version 2.x : null ? ABORT; # Make sure we are working with Redis 2
-
-SET "com.starlightname" 
