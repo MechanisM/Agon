@@ -20,12 +20,13 @@
 	require '../../config.php';
 	require 'adminFunctions.php';
 	
-	if(isset($_GET['do']) isset($_SESSION['logged']) and $_GET['do'] == 'process') {
-		adminDoProcess();
+	if(isset($_GET['do']) and isset($_SESSION['logged'])) {
+		if($_GET['do'] == 'process')
+			adminDoProcess();
 	}
 	
 	if(!isset($_SESSION['logged'])) {
-		adminShowLogin();
+		adminDoLogin();
 	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -132,6 +133,9 @@
 
 				</table>
 			</div>
+			<?php
+				elseif(isset($_GET['do']) and $_GET['do'] == 'settings'):
+			?>
 			<?php
 				# End manage
 				else:
