@@ -60,7 +60,6 @@
 	* @return Header redirect on secuess, error log on failure
 	*/ 
 	function doEditPost() {
-		gloal $redis;
 		
 	}
 
@@ -73,7 +72,7 @@
 	
 	# Login in function
 	function adminDoLogin() {
-		if($_POST['username'] and $_POST['password']) {
+		if(isset($_POST['username']) and isset($_POST['password'])) {
 			$users = $redis->lrange('slight.config.users',0,2); # get all of them. TODO!!!
 			if($users[0] != $_POST['username'] or $user['password'] != $_POST['password']) {
 				echo "<p style='color:red'>The inputted information does not match</p>";
@@ -82,7 +81,8 @@
 				header("Location: ?do=");
 			}
 		}
-		echo '<form method="post" action=""><p><label for="username">Username: </label>input type="text" name="username" id="username" /></p><p><label for="password">Password: </label><input type="password" name="password" id="password" /></p><p><input type="submit" name="button" id="button" value="Submit" /></p></form>
+		echo '<form method="post" action=""><p><label for="username">Username: </label><input type="text" name="username" id="username" /></p><p><label for="password">Password: </label><input type="password" name="password" id="password" /></p><p><input type="submit" name="button" id="button" value="Submit" /></p></form>
 		';
+		die();
 	}
 ?>
