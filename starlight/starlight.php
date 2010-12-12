@@ -118,11 +118,13 @@
 				$comments = array_reverse($comments);
 				
 			for($i = 0; $i < count($comments); $i++){
-				$tpl->num = $i;
-				$tpl->name = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],0);
-				$tpl->date = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],2);
+				$tpl->num   = $i; # Comment number
+				
+				$tpl->name  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],0);
+				$tpl->date  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],2);
 				$tpl->email = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],3);
-				$tpl->body = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],4);
+				$tpl->body  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],4);
+				
 				$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comment.single.tpl.php");
 			}
 		}
