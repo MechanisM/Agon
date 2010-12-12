@@ -72,9 +72,10 @@
 	
 	# Login in function
 	function adminDoLogin() {
+		global $redis;
 		if(isset($_POST['username']) and isset($_POST['password'])) {
 			$users = $redis->lrange('slight.config.users',0,2); # get all of them. TODO!!!
-			if($users[0] != $_POST['username'] or $user['password'] != $_POST['password']) {
+			if($users[0] != $_POST['username'] or $user[1] != $_POST['password']) {
 				echo "<p style='color:red'>The inputted information does not match</p>";
 			} else {
 				$_SESSION['logged'] = true;
