@@ -19,7 +19,8 @@
 	if(!file_exists("config.php"))
 		die("Starlight has not been installed or the config file is corrupt. Please go <a href='starlight/'>Here to start the installer</a>");
 	
-	require("config.php");
+	require 'config.php';
+	require 'starlight/kickstarter.php';
 	
 	if(isset($_GET['f']))
 		$s->addvar($_GET['f']);
