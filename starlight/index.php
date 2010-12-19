@@ -14,5 +14,27 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-	header("Location: admin/");
+
+if(!s_admin)
+	fail("The Admin has been hard disabled","hardAdminDisabled",'503 Service Unavailable');
+
+if (!isset($_SESSION['s.admin'])) {
+	if($_POST) {
+		$u = $redis->lrange('slight.config.admin',0,2);
+		if ($_POST['u'] != $u[0] or md5($_POST['p']) != $u[1]) {
+			fail("Invalid login information","AdminInvalidInfo");
+		} else {
+			$_SESSION['s.admin'] = true;
+			header("Location: ?");
+		}
+	} else {
+		include 'admin/login.tpl.php';
+		die();
+	}
+}
+
+if(isset($_POST['realm'])) {
+	
+}
+
 ?>
