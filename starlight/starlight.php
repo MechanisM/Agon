@@ -91,7 +91,7 @@
 			);
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/posts.tpl.php");
 		}
-	/**
+	  /**
 		* Function called to show a single post
 		*
 		* @param string $num The slug of the post
@@ -99,22 +99,33 @@
 		* @return Displays the theme
 		*/ 
 		public function showpost($num){
-			global $redis, $tpl;
+			global $redis, $tpl, $textile;
 			
 			$id = gS($num);
 			$tpl->id = $id;
 			$tpl->slug = $num;
 			$tpl->title = $redis->lindex(('slight.post.'.$id),1);
-			$tpl->body =  $redis->lindex(('slight.post.'.$id),3);
+			
+			if($redis->get('slight.config.usetextile') == '1')
+				$tpl->body =  $textile->TextileThis($redis->lindex(('slight.post.'.$id),3));
+			else
+				$tpl->body =  $redis->lindex(('slight.post.'.$id),3);
+				
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
 		}
-		
+	  /**
+		* Function called to show the comments for a post
+		*
+		* @param int $id The ID of the bost
+		* @throws Predis_Error If a redis query fails
+		* @return void
+		*/ 		
 		public function readcomments($id){
-			global $redis, $tpl;
+			global $redis, $tpl, $textile;
 			
 			$comments = $redis->keys('slight.comments.'.$id.'.*');
-			# We have an array of comments, which is from 1st to last
-			if($redis->get('slight.config.comment-list') == 'true')
+			
+			if($redis->get('slight.config.comment-list') == 'true') # We allow the user to change the order
 				$comments = array_reverse($comments);
 				
 			for($i = 0; $i < count($comments); $i++){
@@ -123,7 +134,11 @@
 				$tpl->name  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],0);
 				$tpl->date  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],2);
 				$tpl->email = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],3);
-				$tpl->body  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],4);
+				//TODO: Add website field
+				if($redis->get('slight.config.usetextile') == '1')
+					$tpl->body  = $textile->TextileThis($redis->lindex('slight.comments.'.$id.'.'.$comments[i],4));
+				else
+					$tpl->body  = strip_tags($redis->lindex('slight.comments.'.$id.'.'.$comments[i],4));
 				
 				$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comment.single.tpl.php");
 			}
