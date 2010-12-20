@@ -34,7 +34,14 @@ if (!isset($_SESSION['s.admin'])) {
 }
 
 if(isset($_POST['realm'])) {
-	
+	if(!include 'admin/'.$_POST['realm'].'.process.realm.php')
+		fail('The requested process realm was not fouund', 'AdminRealmNotFound');	
+} else if ($_GET['f']) {
+	if(!include 'admin/'.$_POST['realm'].'.realm.php')
+		fail('The requested realm was not fouund', 'AdminRealmNotFound');	
+} else {
+	# Default to write
+	include 'admin/write.realm.php';
 }
 
 ?>
