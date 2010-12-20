@@ -50,6 +50,6 @@
 		if($header)
 			header($header);
 			
-		die($msg."<br />Read more on this error <a href='http://in.decay.me/starlight/bounceToError/".$code."'>here</a>");
+		die($msg."<br />Read more on this error <a href='http://in.decay.me/bouncer/starlight/?bounce=error&code=".$code."'>here</a>");
 	}
 
