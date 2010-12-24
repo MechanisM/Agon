@@ -143,5 +143,20 @@
 				$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comment.single.tpl.php");
 			}
 		}
+		public function showstatic($slug) {
+			global $redis;
+			$page = $redis->lrange("slight.page.".$slug,0,4);
+			
+			$tpl->slug = $slug;
+			$tpl->title = $page[1];
+			
+			if($page[5] == '1')
+				$tpl->body =  $textile->TextileThis($page[2]);
+			else
+				$tpl->body =  $page[2];
+				
+			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/static.tpl.php");
+			
+		}
 	}
 ?>
