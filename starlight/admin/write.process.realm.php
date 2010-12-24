@@ -14,6 +14,10 @@
 		die("One of the feilds was left empty");
 	}
 	# TODO generate ID
+	$y = $redis->keys("slight.post.*");
+		$max = explode(".", $y[(count($y) - 1)]);
+		$id = ($max[2]) + 1;
+	
 	$redis->rpush("slight.post.",$id,$id);	
 	# Generate post slug
 		if(isset($_POST['slug']) and $_POST['slug'] != "") {
