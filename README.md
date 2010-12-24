@@ -13,3 +13,9 @@ Install Redis from source or from package (apt-get install redis)
 Upload files to server directory
 Navigate to /starlight/install.php
 Make sure you have Redis online, and config.php writeable by the server
+
+Todo
+-----
+* Add startup database check to prevent Predis Errors
+* Add a check to see if site is live or not (access if admin is logged in)
+* Comments!
