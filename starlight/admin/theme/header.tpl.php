@@ -10,16 +10,6 @@
 	<!--[if lte IE 6]><link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/main-ie6.css" /><![endif]--> <!-- MSIE6 -->
 	<link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/style.css" /> <!-- GRAPHIC THEME -->
 	<link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/mystyle.css" /> <!-- WRITE YOUR CSS CODE HERE -->
-	<script type="text/javascript" src="admin/theme/js/jquery.js"></script>
-	<script type="text/javascript" src="admin/theme/js/switcher.js"></script>
-	<script type="text/javascript" src="admin/theme/js/toggle.js"></script>
-	<script type="text/javascript" src="admin/theme/js/ui.core.js"></script>
-	<script type="text/javascript" src="admin/theme/js/ui.tabs.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$(".tabs > ul").tabs();
-	});
-	</script>
 	<title>Adminizio Lite</title>
 </head>
 
@@ -56,18 +46,18 @@
 			<ul class="box">
 				<li id="submenu-active"><a href="#">Create</a> <!-- Active -->
 					<ul>
-						<li><a href="#">New Post</a></li>
-						<li><a href="#">New Page</a></li>
+						<li><a href="?f=write">New Post</a></li>
+						<li><a href="?f=write.page">New Page</a></li>
 					</ul>
 				</li>
 				<li><a href="#">Manage</a>
 					<ul>
-						<li><a href="#">Posts</a></li>
-						<li><a href="#">Pages</a></li>
-						<li><a href="#">Comments</a></li>
+						<li><a href="?f=manage&m=posts">Posts</a></li>
+						<li><a href="?f=manage&m=pages">Pages</a></li>
+						<li><a href="?f=manage.comments">Comments</a></li>
 					</ul>
                 </li>
-				<li><a href="#">Settings</a></li>
+				<li><a href="?f=settings">Settings</a></li>
 			</ul>
 
 		</div> <!-- /aside -->
