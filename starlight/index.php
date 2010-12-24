@@ -38,7 +38,7 @@ if(isset($_POST['realm']) and isset($_POST['function'])) {
 	if(!include 'admin/'.$_POST['realm'].'.process.realm.php')
 		fail('The requested process realm was not fouund', 'AdminRealmNotFound');	
 } else if (isset($_GET['f'])) {
-	if(!include 'admin/'.$_POST['realm'].'.realm.php')
+	if(!include 'admin/'.$_GET['f'].'.realm.php')
 		fail('The requested realm was not fouund', 'AdminRealmNotFound');	
 } else {
 	# Default to write
