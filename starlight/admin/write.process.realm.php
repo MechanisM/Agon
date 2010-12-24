@@ -34,13 +34,13 @@
 	$redis->set("slight.slug.".$slug, $id);	# Set the slug, so we can access it
 	$redis->set("slight.slug.".$id, $slug); # We can access the post via id or slug
 	
-	$redis->rpush("slight.post.",$id, $slug);	
-	$redis->rpush("slight.post.",$id, strip_tags(trim($_POST['title']))); # Set the title in the 3rd place
-	$redis->rpush("slight.post.",$id, time()); # Time
-	$redis->rpush("slight.post.",$id, "Admin"); # Set the title in the 3rd place
-	$redis->rpush("slight.post.",$id, $_POST['body']); # Set the title in the 3rd place
+	$redis->rpush("slight.post.".$id, $slug);	
+	$redis->rpush("slight.post.".$id, strip_tags(trim($_POST['title']))); # Set the title in the 3rd place
+	$redis->rpush("slight.post.".$id, time()); # Time
+	$redis->rpush("slight.post.".$id, "Admin"); # Set the title in the 3rd place
+	$redis->rpush("slight.post.".$id, $_POST['body']); # Set the title in the 3rd place
 
-	$redis->rpush("slight.post.",$id, "true"); # Comments enabled?
-	$redis->rpush("slight.post.",$id, "6"); # Time (in weeks) to disable comments after
-	$redis->rpush("slight.post.",$id, "textile"); # Markup language
+	$redis->rpush("slight.post.".$id, "true"); # Comments enabled?
+	$redis->rpush("slight.post.".$id, "6"); # Time (in weeks) to disable comments after
+	$redis->rpush("slight.post.".$id, "textile"); # Markup language
 	
