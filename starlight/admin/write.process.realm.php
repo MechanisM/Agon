@@ -18,7 +18,7 @@
 		$max = explode(".", $y[(count($y) - 1)]);
 		$id = ($max[2]) + 1;
 	
-	$redis->rpush("slight.post.",$id,$id);	
+	$redis->rpush("slight.post.".$id,$id);	
 	# Generate post slug
 		if(isset($_POST['slug']) and $_POST['slug'] != "") {
 			$slug = strtolower(str_replace(' ', '-', $_POST['slug']));
@@ -43,4 +43,4 @@
 	$redis->rpush("slight.post.".$id, "true"); # Comments enabled?
 	$redis->rpush("slight.post.".$id, "6"); # Time (in weeks) to disable comments after
 	$redis->rpush("slight.post.".$id, "textile"); # Markup language
-	
+header("Location: ?f=manage");
