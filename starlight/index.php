@@ -21,7 +21,7 @@ if(!s_admin)
 
 if (!isset($_SESSION['s.admin'])) {
 	if($_POST) {
-		$u = $redis->lrange('slight.config.admin',0,2);
+		$u = $redis->lrange('slight.config.users',0,2);
 		if ($_POST['u'] != $u[0] or md5($_POST['p']) != $u[1]) {
 			fail("Invalid login information","AdminInvalidInfo");
 		} else {
