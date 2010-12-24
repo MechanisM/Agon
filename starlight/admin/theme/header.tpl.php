@@ -4,17 +4,17 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="content-language" content="en" />
 	<meta name="robots" content="noindex,nofollow" />
-	<link rel="stylesheet" media="screen,projection" type="text/css" href="theme/css/reset.css" /> <!-- RESET -->
-	<link rel="stylesheet" media="screen,projection" type="text/css" href="theme/css/main.css" /> <!-- MAIN STYLE SHEET -->
-	<link rel="stylesheet" media="screen,projection" type="text/css" href="theme/css/2col.css" title="2col" /> <!-- DEFAULT: 2 COLUMNS -->
-	<!--[if lte IE 6]><link rel="stylesheet" media="screen,projection" type="text/css" href="theme/css/main-ie6.css" /><![endif]--> <!-- MSIE6 -->
-	<link rel="stylesheet" media="screen,projection" type="text/css" href="theme/css/style.css" /> <!-- GRAPHIC THEME -->
-	<link rel="stylesheet" media="screen,projection" type="text/css" href="theme/css/mystyle.css" /> <!-- WRITE YOUR CSS CODE HERE -->
-	<script type="text/javascript" src="theme/js/jquery.js"></script>
-	<script type="text/javascript" src="theme/js/switcher.js"></script>
-	<script type="text/javascript" src="theme/js/toggle.js"></script>
-	<script type="text/javascript" src="theme/js/ui.core.js"></script>
-	<script type="text/javascript" src="theme/js/ui.tabs.js"></script>
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/reset.css" /> <!-- RESET -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/main.css" /> <!-- MAIN STYLE SHEET -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/2col.css" title="2col" /> <!-- DEFAULT: 2 COLUMNS -->
+	<!--[if lte IE 6]><link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/main-ie6.css" /><![endif]--> <!-- MSIE6 -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/style.css" /> <!-- GRAPHIC THEME -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="admin/theme/css/mystyle.css" /> <!-- WRITE YOUR CSS CODE HERE -->
+	<script type="text/javascript" src="admin/theme/js/jquery.js"></script>
+	<script type="text/javascript" src="admin/theme/js/switcher.js"></script>
+	<script type="text/javascript" src="admin/theme/js/toggle.js"></script>
+	<script type="text/javascript" src="admin/theme/js/ui.core.js"></script>
+	<script type="text/javascript" src="admin/theme/js/ui.tabs.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$(".tabs > ul").tabs();
