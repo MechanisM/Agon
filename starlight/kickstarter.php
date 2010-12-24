@@ -14,16 +14,11 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-	define("s_version", "0.0.4");
-	define("s_release", false); # Set to false for develoment
-	define("s_admin", true); # Set to false to disable the admin
 	
-	
-	require_once "starlight/classes/predis/Predis.php";	# Database
-	require_once "starlight/starlight.php";				# Core		
-	require_once 'starlight/classes/Savant3.php';		# Themeing
-	require_once 'starlight/classes/classTextile.php';	# Formatting
+	require_once _PATH."/classes/predis/Predis.php";	# Database
+	require_once _PATH."/starlight.php";				# Core		
+	require_once _PATH.'/classes/Savant3.php';	# Formatting
+	require_once _PATH.'/classes/classTextile.php';	# Formatting
 	
 	$redis = new Predis_Client($single_server);			# Start the Redis connection
 	$s = new starlight();								# Start the basic classes
