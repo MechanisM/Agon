@@ -1,8 +1,13 @@
-<div id="end_page">
-  <p>Starlight &middot; 0.0.3</p>
-  
-  <!--<p id="moniker">Logged in as <span>admin</span><br />
-    <a href="index.php?logout=1">Logout</a></p>-->
-</div>
+
+	<div class="spacer"></div>	
+	<div id="footer">
+		<div class="footer">
+			Template design by <a href="http://www.mlpdesign.net">MLP Design</a>.<br />
+			<a href="http://validator.w3.org/check?uri=referer"> XHTML 1.0 Strict</a> / <a href="http://jigsaw.w3.org/css-validator/check/referer ">CSS Valid</a></div>
+			&copy; Copyright 2006 Your Name. All Rights Reserved.
+		</div>
+	</div>
+
 </body>
+
 </html>
