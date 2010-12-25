@@ -144,13 +144,13 @@
 			}
 		}
 		public function showstatic($slug) {
-			global $redis;
+			global $redis, $textile, $tpl;
 			$page = $redis->lrange("slight.page.".$slug,0,4);
 			
 			$tpl->slug = $slug;
 			$tpl->title = $page[1];
 			
-			if($page[5] == '1')
+			if($page[4] == '1')
 				$tpl->body =  $textile->TextileThis($page[2]);
 			else
 				$tpl->body =  $page[2];
