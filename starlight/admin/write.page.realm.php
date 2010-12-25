@@ -22,7 +22,7 @@
 					</tr>
 				</table>
 			</fieldset>
-			<input type="hidden" name="realm" value="write" />
+			<input type="hidden" name="realm" value="write.page" />
 			<input type="hidden" name="function" value="page" />
 		</form>
 <?php 
