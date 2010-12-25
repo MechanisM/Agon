@@ -3,9 +3,8 @@
 	 * 0 Slug
 	 * 1 Title
 	 * 2 Body
-	 * 3 Comments
-	 * 4 Disable Time
-	 * 5 Syntax 
+	 * 3 null
+	 * 4 Syntax 
 	 */
 	if(!isset($_POST['title']) or !isset($_POST['title'])) { # Make sure we have a title
 		die("One of the feilds was left empty");
@@ -17,19 +16,11 @@
 		} else {
 			$slug = strtolower(str_replace(' ', '-', $_POST['title']));
 		}
-		$o = 2; # We will just add another number to the end of the slug
-		do {
-			$slug .= "-".$o;
-			$o++; # Increase the number
-		} while ($redis->get("slight.slug.".$slug));
 	
-	$redis->rpush("slight.page.".$id, $slug);	
-	$redis->rpush("slight.post.".$id, strip_tags(trim($_POST['title']))); # Set the title in the 3rd place
-	$redis->rpush("slight.post.".$id, time()); # Time
-	$redis->rpush("slight.post.".$id, "Admin"); # Set the title in the 3rd place
-	$redis->rpush("slight.post.".$id, $_POST['body']); # Set the title in the 3rd place
+	$redis->rpush("slight.page.".$slug, $slug);	
+	$redis->rpush("slight.page.".$slug, strip_tags(trim($_POST['title']))); # Set the title
+	$redis->rpush("slight.page.".$slug, $_POST['body']); # Set the body
 
-	$redis->rpush("slight.post.".$id, "true"); # Comments enabled?
-	$redis->rpush("slight.post.".$id, "6"); # Time (in weeks) to disable comments after
-	$redis->rpush("slight.post.".$id, "textile"); # Markup language
-header("Location: ?f=manage");
+	$redis->rpush("slight.page.".$slug, "null"); # ?
+	$redis->rpush("slight.page.".$id, "textile"); # Markup language
+header("Location: ?f=manage.pages");
