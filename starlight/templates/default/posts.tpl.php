@@ -8,7 +8,7 @@
 ?>
 <?php for ($i = $this->posts[1]; $i >= $this->posts[0]; $i--): ?>
 	<?php if(isset($this->posts[2][$i])): 
-			$info = (object) array('id' => _i($this->posts[2][$i],0),'title' => _i($this->posts[2][$i],1), 'date' => _i($this->posts[2][$i],2), 'body' => _i($this->posts[2][$i],3));
+			$info = (object) array('id' => _i($this->posts[2][$i],0),'title' => _i($this->posts[2][$i],2), 'date' => _i($this->posts[2][$i],3), 'body' => _i($this->posts[2][$i],5));
 	?>
 			<div class="post" id="post-4">
 				<h2><a href="?f=post/<?php echo gS($info->id); ?>" rel="bookmark"><?php echo $info->title; ?></a></h2>
