@@ -104,12 +104,13 @@
 			$id = gS($num);
 			$tpl->id = $id;
 			$tpl->slug = $num;
-			$tpl->title = $redis->lindex(('slight.post.'.$id),1);
+			$tpl->title = $redis->lindex(('slight.post.'.$id),2);
+			$tpl->date = $redis->lindex(('slight.post.'.$id),3);
 			
-			if($redis->get('slight.config.usetextile') == '1')
-				$tpl->body =  $textile->TextileThis($redis->lindex(('slight.post.'.$id),3));
+			if($redis->lindex(('slight.post.'.$id),8) == '1')
+				$tpl->body =  $textile->TextileThis($redis->lindex(('slight.post.'.$id),5));
 			else
-				$tpl->body =  $redis->lindex(('slight.post.'.$id),3);
+				$tpl->body =  $redis->lindex(('slight.post.'.$id),5);
 				
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
 		}
@@ -143,6 +144,13 @@
 				$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comment.single.tpl.php");
 			}
 		}
+	  /**
+		* Function called to show a static page
+		*
+		* @param str $slug The page slug
+		* @throws Predis_Error If a redis query fails
+		* @return void
+		*/
 		public function showstatic($slug) {
 			global $redis, $textile, $tpl;
 			$page = $redis->lrange("slight.page.".$slug,0,4);
