@@ -52,8 +52,8 @@
 				</li>
 				<li><a href="#">Manage</a>
 					<ul>
-						<li><a href="?f=manage&m=posts">Posts</a></li>
-						<li><a href="?f=manage&m=pages">Pages</a></li>
+						<li><a href="?f=manage">Posts</a></li>
+						<li><a href="?f=manage.page">Pages</a></li>
 						<li><a href="?f=manage.comments">Comments</a></li>
 					</ul>
                 </li>
