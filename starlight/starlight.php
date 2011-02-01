@@ -126,26 +126,31 @@
 		public function readcomments($id){
 			global $redis, $tpl, $textile;
 			
-			//echo "done";
-			
 			$comments = $redis->keys('slight.comments.'.$id.'.*');
+
 			if($redis->get('slight.config.comment-list') == 'true') # We allow the user to change the order
 				$comments = array_reverse($comments);
 				
 			for($i = 0; $i < count($comments); $i++){
-				$tpl->num   = $i; # Comment number
+				$tpl->$i = (object) true; # We just need something to tell the object is an object, so we dont get errors below
+				$tpl->$i->num   = $i; # Comment number
 				
-				$tpl->name  = $redis->lindex('slight.comments.'.$id.'.'.$comments[$i],1);
-				$tpl->date  = $redis->lindex('slight.comments.'.$id.'.'.$comments[$i],2);
-				$tpl->email = $redis->lindex('slight.comments.'.$id.'.'.$comments[$i],3);
+				$tpl->$i->name  = $redis->lindex($comments[$i],1);
+				$tpl->$i->date  = $redis->lindex($comments[$i],2);
+				$tpl->$i->email = $redis->lindex($comments[$i],3);
 				//TODO: Add website field
-				if($redis->get('slight.config.usetextile') == '1')
-					$tpl->body  = $textile->TextileThis($redis->lindex('slight.comments.'.$id.'.'.$comments[$i],4));
-				else
-					$tpl->body  = strip_tags($redis->lindex('slight.comments.'.$id.'.'.$comments[$i],4));
-				
-				$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comment.single.tpl.php");
+				if($redis->get('slight.config.usetextile') == '1') {
+					if(!class_exists($textile)) {
+						echo "Textile not loaded. This is a bug...";
+					} else {
+						$tpl->$i->body  = $textile->TextileThis($redis->lindex($comments[$i],4));	
+					}
+				} else {
+					$tpl->$i->body  = strip_tags($redis->lindex($comments[$i],4));
+				}
 			}
+			$tpl->max = $i;
+			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comments.tpl.php");
 		}
 
 		public function addcomment($slug, $in) {
