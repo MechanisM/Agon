@@ -1,62 +1,54 @@
-            	<div class="navigation">
-                  <div class="alignleft"></div>
 
-                    <div class="alignright"></div>
-              </div>
+		</div><!-- #content -->
+	</div><!-- #container -->
 
-
-          </div>
-
-        			<div id="left">
-        				<ul>
-        					<li class="categories"><h2>Categories</h2><ul>	<li class="cat-item cat-item-5"><a href="http://wp-themes.com/?cat=5" title="View all posts filed under Parent">Parent</a>
-        						<ul class='children'>
-            						<li class="cat-item cat-item-6"><a href="http://wp-themes.com/?cat=6" title="View all posts filed under First Child Category">First Child Category</a></li>
-            						<li class="cat-item cat-item-7"><a href="http://wp-themes.com/?cat=7" title="View all posts filed under Second Child Category">Second Child Category</a>
-            							<ul class='children'>
-            								<li class="cat-item cat-item-8"><a href="http://wp-themes.com/?cat=8" title="View all posts filed under One Grandchild Category">One Grandchild Category</a></li>
-            							</ul>
-        							</li>
-        						</ul>
-        					</li>
-            				<li class="cat-item cat-item-1"><a href="http://wp-themes.com/?cat=1" title="View all posts filed under Uncategorized">Uncategorized</a></li>
-        				</ul>
+	<div id="primary" class="aside main-aside">
+		<ul class="xoxo">
+			<li id="text-402094252" class="widgetcontainer widget_text"><h3 class="widgettitle">The Thematic Demo Site</h3>
+				<div class="textwidget"><p>You're looking at the Thematic Demo Site. You can read more about the Thematic Theme and Download it from the <a href="http://themeshaper.com/thematic/">Thematic Page on ThemeShaper</a>.</p></div>
+			</li>
+			<li id="search-2" class="widgetcontainer widget_search">
+				<form id="searchform" method="get" action="http://themeshaper.com/demo/thematic">
+					<div>
+						<input id="s" name="s" type="text" value="To search, type and hit enter" onfocus="if (this.value == 'To search, type and hit enter') {this.value = '';}" onblur="if (this.value == '') {this.value = 'To search, type and hit enter';}" size="32" tabindex="1" />
+						<input id="searchsubmit" name="searchsubmit" type="submit" value="Search" tabindex="2" />
+					</div>
+				</form>
+			</li>
+			<li id="pages-2" class="widgetcontainer widget_pages"><h3 class="widgettitle">Pages</h3>
+				<ul>
+					<li class="page_item page-item-24"><a href="http://themeshaper.com/demo/thematic/?page_id=24" title="About">About</a>
+						<ul>
+							<li class="page_item page-item-25"><a href="http://themeshaper.com/demo/thematic/?page_id=25" title="Archives">Archives</a></li>
+							<li class="page_item page-item-26"><a href="http://themeshaper.com/demo/thematic/?page_id=26" title="Links">Links</a></li>
+						</ul>
 					</li>
-        			<li><h2>Archives</h2>
-            			<ul>
-                    		<li><a href='http://wp-themes.com/?m=200810' title='October 2008'>October 2008</a></li>
-            				<li><a href='http://wp-themes.com/?m=200809' title='September 2008'>September 2008</a></li>
-            				<li><a href='http://wp-themes.com/?m=200806' title='June 2008'>June 2008</a></li>
-            			</ul>
-        			</li>
-        			<li id="linkcat-2" class="linkcat"><h2>Blogroll</h2>
-            			<ul class='xoxo blogroll'>
-        					<li><a href="http://wordpress.org/development/">Development Blog</a></li>
-        					<li><a href="http://codex.wordpress.org/">Documentation</a></li>
-        					<li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
-        					<li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
-            			</ul>
-        			</li>
-        		</ul>
-        	</div>
-        	<div id="right">
-        		<ul>
-        			<li><h2>Meta</h2>
-            			<ul>
-                        	<li><a href="http://wp-themes.com/wp/wp-login.php">Log in</a></li>
-                			<li><a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional">Valid <abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a></li>
-                			<li><a href="http://gmpg.org/xfn/"><abbr title="XHTML Friends Network">XFN</abbr></a></li>
-                			<li><a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress</a></li>
-                		</ul>
-        			</li>
-        		</ul>
-        	</div>
-        	<div id="footer">
-        		<!-- credit links are not required to remain intact, but is appreciated. Thanks! -->
-            	<p>
-                &copy; 2010 Theme Preview | Powered by <a href="http://wordpress.org/">WordPress</a> | Theme by <a href="http://www.adaircameron.co.uk/">Adair</a> | <a href="http://wp-themes.com/wp/wp-login.php">Log in</a>	</p>
-        	</div>
-        </div>
-    </body>
-</html>
+					<li class="page_item page-item-27"><a href="http://themeshaper.com/demo/thematic/?page_id=27" title="Element Examples">Element Examples</a></li>
+					<li class="page_item page-item-28"><a href="http://themeshaper.com/demo/thematic/?page_id=28" title="Example Images">Example Images</a></li>
+					<li class="page_item page-item-69"><a href="http://themeshaper.com/demo/thematic/?page_id=69" title="Example Page">Example Page</a></li>
+				</ul>
+			</li>
+				<li id="categories-402094251" class="widgetcontainer widget_categories"><h3 class="widgettitle">Categories</h3></li>
+				<li id="archives-2" class="widgetcontainer widget_archive"><h3 class="widgettitle">Archives</h3>
+				<ul>
+					<li><a href='http://themeshaper.com/demo/thematic/?m=200804' title='April 2008'>April 2008</a></li>
+					<li><a href='http://themeshaper.com/demo/thematic/?m=200803' title='March 2008'>March 2008</a></li>		
+					<li><a href='http://themeshaper.com/demo/thematic/?m=200802' title='February 2008'>February 2008</a></li>
+					<li><a href='http://themeshaper.com/demo/thematic/?m=200703' title='March 2007'>March 2007</a></li>
+					<li><a href='http://themeshaper.com/demo/thematic/?m=200702' title='February 2007'>February 2007</a></li>
+					<li><a href='http://themeshaper.com/demo/thematic/?m=200701' title='January 2007'>January 2007</a></li>
+					<li><a href='http://themeshaper.com/demo/thematic/?m=200612' title='December 2006'>December 2006</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div><!-- #primary .aside -->
+</div><!-- #main -->
+<div id="footer">
+	<div id="siteinfo">        
+    		Powered by <a class="wp-link" href="http://WordPress.org/" title="WordPress" rel="generator">WordPress</a>. Built on the <a class="theme-link" href="http://themeshaper.com/thematic/" title="Thematic Theme Framework" rel="designer">Thematic Theme Framework</a>.		</div><!-- #siteinfo -->
+	</div><!-- #footer -->
+</div><!-- #wrapper .hfeed -->
 
+
+</body>
+</html>
