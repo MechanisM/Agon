@@ -53,11 +53,13 @@
 			if($this->func and $this->prams) { # Check if we have a function that we need to run
 				switch($this->func){ # Switchboard for the functions in which we will call localized functions
 					case 'page': 
-						$this->showpage($this->prams); 		break;
+						$this->showpage($this->prams); 	break;
 					case 'post':
-						$this->showpost($this->prams); 		break;
+						$this->showpost($this->prams); 	break;
 					case 'static': 
-						$this->showstatic($this->prams); 	break;
+						$this->showstatic($this->prams);break;
+					case 'comment':
+						$this->addcomment($this->prams);break;
 				}
 			} else { # Just do the generic list latest posts in the database
 				$this->showpage(1);
@@ -98,7 +100,7 @@
 		* @throws Predis_Error If a redis query fails
 		* @return Displays the theme
 		*/ 
-		public function showpost($num){
+		private function showpost($num){
 			global $redis, $tpl, $textile;
 			
 			$id = gS($num);
@@ -124,25 +126,54 @@
 		public function readcomments($id){
 			global $redis, $tpl, $textile;
 			
-			$comments = $redis->keys('slight.comments.'.$id.'.*');
+			//echo "done";
 			
+			$comments = $redis->keys('slight.comments.'.$id.'.*');
 			if($redis->get('slight.config.comment-list') == 'true') # We allow the user to change the order
 				$comments = array_reverse($comments);
 				
 			for($i = 0; $i < count($comments); $i++){
 				$tpl->num   = $i; # Comment number
 				
-				$tpl->name  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],0);
-				$tpl->date  = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],2);
-				$tpl->email = $redis->lindex('slight.comments.'.$id.'.'.$comments[i],3);
+				$tpl->name  = $redis->lindex('slight.comments.'.$id.'.'.$comments[$i],1);
+				$tpl->date  = $redis->lindex('slight.comments.'.$id.'.'.$comments[$i],2);
+				$tpl->email = $redis->lindex('slight.comments.'.$id.'.'.$comments[$i],3);
 				//TODO: Add website field
 				if($redis->get('slight.config.usetextile') == '1')
-					$tpl->body  = $textile->TextileThis($redis->lindex('slight.comments.'.$id.'.'.$comments[i],4));
+					$tpl->body  = $textile->TextileThis($redis->lindex('slight.comments.'.$id.'.'.$comments[$i],4));
 				else
-					$tpl->body  = strip_tags($redis->lindex('slight.comments.'.$id.'.'.$comments[i],4));
+					$tpl->body  = strip_tags($redis->lindex('slight.comments.'.$id.'.'.$comments[$i],4));
 				
 				$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comment.single.tpl.php");
 			}
+		}
+
+		public function addcomment($slug, $in) {
+			global $redis;
+			if(!$in and $slug)
+				header("Location: ?f=post/".$slug);
+			else if(!$in and !$slug)
+				header("Location: ?f=page/1");
+				
+			if(trim($in['name']) == "" or trim($in['email']) == "" or trim($in['body']) == "" or trim($in['human']) == "") {
+				die("One of the required fields was not filled in");
+			}	
+				if(!eregi("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $in['email'])){
+					die("Invalid Email");
+				}
+			if($in['human'] != 'yes') {
+				die("You are not human");
+			}
+			$comments = $redis->keys('slight.comments.'.$slug.'.*');
+			$r = count($comments);
+			$d = ($redis->lindex($comments[($r - 1)],0)) + 1;
+			
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$d);
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['name']); //TODO Add removal of tags
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,'date');
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['email']);
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['body']); //TODO Add removal of tags
+			header("Location: ?f=post/".$slug);			
 		}
 	  /**
 		* Function called to show a static page
