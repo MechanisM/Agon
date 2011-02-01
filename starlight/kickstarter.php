@@ -47,4 +47,7 @@
 			
 		die($msg."<br />Read more on this error <a href='http://in.decay.me/bouncer/starlight/?bounce=error&code=".$code."'>here</a>");
 	}
-
+	
+	function meta2obj($arr,$i) {
+		return (object) array('id' => _i($arr[2][$i],0),'title' => _i($arr[2][$i],2), 'date' => _i($arr[2][$i],3), 'body' => _i($arr[2][$i],5));
+	}
