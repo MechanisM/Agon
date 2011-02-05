@@ -7,7 +7,7 @@
 	include 'header.tpl.php'; # Makesure we have the header included
 ?>
 <?php for ($i = $this->posts[1]; $i >= $this->posts[0]; $i--): ?>
-	<?php if(isset($this->posts[2][$i])): 
+	<?php if(isset($this->posts[2][$i]) and _i($this->posts[2][$i],9) == 'true' ): 
 			$info = meta2obj($this->posts,$i);
 	?>
 			<div id="post-">
