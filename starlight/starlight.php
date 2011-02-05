@@ -116,6 +116,7 @@
 				
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
 		}
+		
 	  /**
 		* Function called to show the comments for a post
 		*
