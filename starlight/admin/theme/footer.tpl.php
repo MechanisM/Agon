@@ -1,10 +1,11 @@
-	</div> <!-- /cols -->
-	<hr class="noscreen" />
-	<!-- Footer -->
-	<div id="footer" class="box">
-		<p class="f-left">&copy; 2009 <a href="#">Your Company</a>, All Rights Reserved &reg;</p>
-		<p class="f-right">Templates by <a href="http://www.adminizio.com/">Adminizio</a></p>
-	</div> <!-- /footer -->
-</div> <!-- /main -->
-</body>
-</html>
+					<!-- BODY END -->
+					<div class='cl'><!-- --></div>
+				</div>
+				<div id='footer' class='c2'>
+					<div class='col'>&copy; 20011</div>
+					<div class='col right'><a href='http://projects.archangel.io/starlight'>Starlight<small></small> v0.13a</a></div>
+					<div class='cl'><!-- --></div>
+				</div>
+			</div>
+		</body>
+	</html>
