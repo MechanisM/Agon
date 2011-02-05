@@ -22,7 +22,7 @@ if(!s_admin)
 if (!isset($_SESSION['s.admin'])) {
 	if($_POST) {
 		$u = $redis->lrange('slight.config.users',0,2);
-		if ($_POST['u'] != $u[0] or md5($_POST['p']) != $u[1]) {
+		if ($_POST['uid'] != $u[0] or md5($_POST['pwd']) != $u[1]) {
 			fail("Invalid login information","AdminInvalidInfo");
 		} else {
 			$_SESSION['s.admin'] = true;
@@ -42,7 +42,7 @@ if(isset($_POST['realm']) and isset($_POST['function'])) {
 		fail('The requested realm was not fouund', 'AdminRealmNotFound');	
 } else {
 	# Default to write
-	include 'admin/write.realm.php';
+	include 'admin/dashboard.realm.php';
 }
 
 ?>
