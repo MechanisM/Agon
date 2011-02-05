@@ -18,8 +18,7 @@ Todo
 -----
 * Add startup database check to prevent Predis Errors
 * Add a check to see if site is live or not (access if admin is logged in)
-* Comments!
 * RSS
 ** Add a moderation function (v0.2)
 
-Current Development Version : v0.1.3 
+Current Development Version : v0.1.6 
