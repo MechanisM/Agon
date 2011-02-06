@@ -21,4 +21,4 @@ Todo
 * RSS
 ** Add a moderation function (v0.2)
 
-Current Development Version : v0.1.6 
+Current Development Version : v0.1.8 
