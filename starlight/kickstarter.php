@@ -51,3 +51,8 @@
 	function meta2obj($arr,$i) {
 		return (object) array('id' => _i($arr[2][$i],0),'title' => _i($arr[2][$i],2), 'date' => _i($arr[2][$i],3), 'body' => _i($arr[2][$i],5));
 	}
+	
+	function url($place) {
+		if(_c('slight.config.cleanurl') == 'true')
+			return _c('slight.config.siteurl').'/'.$place;
+	}

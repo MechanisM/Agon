@@ -195,7 +195,7 @@ iframe.prv-text { width: 880px; height: 500px; background: #fff; }
 
 
 /* sorting the exhibits index page - this is a little messy still */
-.sortable { width: 905px; list-style: none; margin-bottom: 18px; font-size: 10px; }
+.sortable { width: 100%; list-style: none; margin-bottom: 18px; font-size: 10px; }
 .sortable li { margin: 2px; padding: 4px 24px 4px 18px; background: #fafafa;
 	border-bottom: 1px solid #ccc; color: #000; }
 .sortableitem { font-size: 11px; position: relative; cursor: pointer; }
