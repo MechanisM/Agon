@@ -51,7 +51,7 @@
 						 * 8 Syntax
 						 * 9 
 						 */
-						$posts = array_flip($redis->keys("slight.post.*"));
+						$posts = $redis->keys("slight.post.*");
 						$h = count($posts);
 						for($x = 0; $x<$h; $x++) {
 							$z = $redis->lrange($posts[$x],0,9);
@@ -70,7 +70,7 @@
 						 * 3 null
 						 * 4 Syntax 
 						 */
-						$posts = array_flip($redis->keys("slight.page.*"));
+						$posts = $redis->keys("slight.page.*");
 						$h = count($posts);
 						for($x = 0; $x<$h; $x++) {
 							$z = $redis->lrange($posts[$x],0,9);
