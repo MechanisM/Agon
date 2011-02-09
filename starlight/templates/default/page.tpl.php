@@ -16,7 +16,7 @@
 			</div><!-- .post -->
 
 			<?php 
-			gC(1); # Get the comments
+			gC($this->id); # Get the comments
 			include 'comment.form.tpl.php'; # Show Comment form
 			?>
 <?php
