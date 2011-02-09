@@ -50,8 +50,6 @@
 								<input type="password" name="password" value=""   maxlength='12' />
 								<label>Confirm Password <span class='small-txt'>if changing</span> </label>
 								<input type="password" name="cpassword" value=""   maxlength='12' />
-							</div>
-							<div class='col'>
 								<p>System Status</p>
 								<table width="100%" border="0">
 								  <tr>
@@ -64,6 +62,23 @@
 								    <td>&nbsp;</td>
 								  </tr>
 								</table>
+							</div>
+							<div class='col'>
+								<p>Theme Config</p>
+								<label>Current Theme</label>
+								<select name='comment_order'>
+									<option value="flip" <?php if(_c("slight.config.list") == 'flip') echo 'selected="selected"'; ?>>Newest First</option>
+									<option value="dont" <?php if(_c("slight.config.list") == 'dont') echo 'selected="selected"'; ?>>Oldest First</option>
+								</select>
+								<?php
+									if(file_exists('templates/'.$redis->get('slight.config.template').'/settings.php')) {
+										if($_POST) {
+											save_settings();
+										} else {
+											show_settings();
+										}
+									}
+								?>
 							</div>
 							<div class='cl'><!-- --></div>
 						</div>	
