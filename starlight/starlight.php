@@ -25,7 +25,6 @@
 	* @since Class available since Release 0.0.1
 	*/ 
 	class starlight {
-		
 		public $func = "";
 		public $prams = "";
 		
@@ -33,8 +32,6 @@
 		* This function is used to define the current function for the system
 		*
 		* @param URI $v The request URi 
-		* @throws Nothing
-		* @return Nothing
 		*/ 
 		public function addvar($v) {
 			if($v) {	# Make sure we actually have data to read, if we dont, we dont want errors to displayed.
@@ -46,8 +43,6 @@
 		
 	  /**
 		* Function to start the system, and does all the processing
-		*
-		* @return Output
 		*/ 
 		public function start(){
 			if($this->func and $this->prams) { # Check if we have a function that we need to run
@@ -69,17 +64,11 @@
 		* Function called to show the posts for the inputted page number
 		*
 		* @param integer $num The current page number
-		* @throws Predis_Error If a redis query fails
-		* @return Output of query
 		*/ 
 		# This is the function to show the post list
 		public function showpage($num){
 			global $redis, $tpl;
-			
-			# First we need to add the post ids to an array so we make sure we have valid posts that we can access
 			$posts = $redis->keys('slight.post.*');
-			
-			# If we have page 1, we need to show posts 0-4 from the array
 			$limit = $redis->get("slight.config.list"); # The number to show per page
 
 			$tpl->posts = array(
@@ -97,8 +86,6 @@
 		* Function called to show a single post
 		*
 		* @param string $num The slug of the post
-		* @throws Predis_Error If a redis query fails
-		* @return Displays the theme
 		*/ 
 		private function showpost($num){
 			global $redis, $tpl, $textile;
@@ -121,8 +108,6 @@
 		* Function called to show the comments for a post
 		*
 		* @param int $id The ID of the bost
-		* @throws Predis_Error If a redis query fails
-		* @return void
 		*/ 		
 		public function readcomments($id){
 			global $redis, $tpl, $textile;
@@ -156,18 +141,17 @@
 
 		public function addcomment($slug, $in) {
 			global $redis;
-			if(!$in and $slug)
-				header("Location: ?f=post/".$slug);
-			else if(!$in and !$slug)
-				header("Location: ?f=page/1");
-				
-			if(trim($in['name']) == "" or trim($in['email']) == "" or trim($in['body']) == "" or trim($in['human']) == "") {
+			if(!$_POST or !$_POST['post_ID']) {
+				header("Location: ?");
+			}
+
+			if(trim($_POST['author']) == "" or trim($_POST['email']) == "" or trim($_POST['comment']) == "" or trim($_POST['human']) == "") {
 				die("One of the required fields was not filled in");
 			}	
 				if(!eregi("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $in['email'])){
 					die("Invalid Email");
 				}
-			if($in['human'] != 'yes') {
+			if($in['human'] != '5') { # 2 + 3
 				die("You are not human");
 			}
 			$comments = $redis->keys('slight.comments.'.$slug.'.*');
@@ -175,23 +159,22 @@
 			$d = ($redis->lindex($comments[($r - 1)],0)) + 1;
 			
 			$redis->rpush('slight.comments.'.$slug.'.'.$d,$d);
-			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['name']); //TODO Add removal of tags
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['author']); //TODO Add removal of tags
 			$redis->rpush('slight.comments.'.$slug.'.'.$d,'date');
 			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['email']);
-			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['body']); //TODO Add removal of tags
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['comment']); //TODO Add removal of tags
 			header("Location: ?f=post/".$slug);			
 		}
 	  /**
 		* Function called to show a static page
 		*
 		* @param str $slug The page slug
-		* @throws Predis_Error If a redis query fails
-		* @return void
 		*/
 		public function showstatic($slug) {
 			global $redis, $textile, $tpl;
 			$page = $redis->lrange("slight.page.".$slug,0,4);
 			
+			$tpl->id = $page[0];
 			$tpl->slug = $slug;
 			$tpl->title = $page[1];
 			
@@ -201,7 +184,6 @@
 				$tpl->body =  $page[2];
 				
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/static.tpl.php");
-			
 		}
 	}
 ?>
