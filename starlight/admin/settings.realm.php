@@ -4,10 +4,10 @@
 		if(trim($_POST['title']) != "" and $_POST['title'] != _c("slight.config.name")) $redis->set("slight.config.name",$_POST['title']);
 		if(trim($_POST['desc']) != "" and $_POST['desc'] != _c("slight.config.desc")) $redis->set("slight.config.desc",$_POST['desc']);
 		$redis->set("slight.config.list",$_POST['posts_per_page']);
-		if(trim($_POST['password']) == trim($_POST['cpassword'])) {
+		/*if(trim($_POST['password']) == trim($_POST['cpassword'])) {
 			$redis->lindex('slight.config.users',0,$_POST['userid']);
 			$redis->lindex('slight.config.users',1,md5($_POST['password']));
-		}
+		}*/
 		echo "<h2>Updated</h2>";
 	}
 ?>
@@ -21,7 +21,7 @@
 								<input type="text" name="desc" value="<?php echo _c("slight.config.desc"); ?>" />
 								<label>Post Per Page <span class='small-txt'>Number of Posts to show per page</span> </label>
 								<select name='posts_per_page'>
-									<?php for($i = 0;$i<15;$i++) { echo "<option value='$i'";
+									<?php for($i = 1;$i<15;$i++) { echo "<option value='$i'";
 											if(_c("slight.config.list") == "$i") echo 'selected="selected"';
 											echo ">$i</option>\n"; } ?>
 									</select>
