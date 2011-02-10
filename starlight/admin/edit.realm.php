@@ -5,9 +5,14 @@
 	if(isset($_POST['title'])) {
 		if($_POST['section_id'] == '1') {
 			$y = $redis->keys("slight.post.*");
-				$max = explode(".", $y[(count($y) - 1)]);
-				$id = ($max[2]) + 1;
-			
+			$c = count($y);
+			if($c < 0) {
+				$s = explode('.',$y[($c - 1)]);
+				$id = $s[2];
+			} else {
+				$id = 1;
+			}
+
 			$redis->rpush("slight.post.".$id,$id);	
 			$slug = strtolower(str_replace(' ', '-', $_POST['title']));
 			$redis->set("slight.slug.".$slug, $id);	# Set the slug, so we can access it
@@ -23,7 +28,6 @@
 			$redis->rpush("slight.post.".$id, null); # Markup language
 			$redis->rpush("slight.post.".$id, false); # Is the post live?
 			$title = $_POST['title'];
-			$id = $_POST['id'];
 		} else if($_POST['section_id'] == '2') {
 			$slug = strtolower(str_replace(' ', '-', $_POST['title']));
 			$id = $slug;
@@ -34,7 +38,7 @@
 			$redis->rpush("slight.page.".$slug, false); # Page is live
 		}
 	} else if(isset($_POST['edit'])) {
-		$id = $_POST['edit'];
+		$id = (int) $_POST['edit'];
 		if(is_int($id) and $redis->exists("slight.post.".$id)) { # We have an id. 
 			if(trim($_POST['content']) == '') {
 				die("You need to enter some content. ".trim($_POST['content']));
@@ -59,14 +63,16 @@
 			$redis->lset("slight.post.".$id, 5, $_POST['publish']);
 			header("Location: ?f=edit&id=".$id);
 		}
-	} else if($_GET['id']) {
-		$id = $_GET['id'];
-		if(is_int($id) and $redis->exists("slight.post.".$id)) {
+	} else if(isset($_GET['id'])) {
+		$id = (int) $_GET['id'];
+		if(is_int($id)) {
 			$title = $redis->lindex('slight.post.'.$id,2);
 			$body = $redis->lindex('slight.post.'.$id,5);
 		} else if($redis->exists("slight.page.".$id)) {
 			$title = $redis->lindex('slight.page.'.$id,2);
 			$body = $redis->lindex('slight.page.'.$id,3);
+		} else {
+			die("WHAT THE FUCK?!?!?!!!!?!? This is not an interger? ".$id);
 		}
 	} else {
 		die("You need. ".var_dump($_POST));
@@ -111,7 +117,7 @@
 											<div class='cl'><!-- --></div>
 
 <textarea name='content' class='content' id='jxcontent' style='width:625px;'>
-<?php if(isset($body)) echo $body; ?>
+<?php echo $body; ?>
 </textarea>
 											<div class='cl'><!-- --></div>
 										</div>
