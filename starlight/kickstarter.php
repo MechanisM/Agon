@@ -33,9 +33,7 @@
 		global $redis;
 		return $redis->lindex($a,$b);
 	}
-	function gS($s) {
-		return _c("slight.slug.".$s);
-	}
+
 	function gC($i){
 		global $s;
 		$s->readcomments($i);
@@ -49,7 +47,12 @@
 	}
 	
 	function meta2obj($arr,$i) {
-		return (object) array('id' => _i($arr[2][$i],0),'title' => _i($arr[2][$i],2), 'date' => _i($arr[2][$i],3), 'body' => _i($arr[2][$i],5));
+		return (object) array(  'id' => _i($arr[2][$i],0),
+                                        'slug' => _i($arr[2][$i],1),
+                                        'title' => _i($arr[2][$i],2), 
+                                        'date' => _i($arr[2][$i],3), 
+                                        'author' => _i($arr[2][$i],4), 
+                                        'body' => _i($arr[2][$i],5));
 	}
 	
 	function url($place) {
