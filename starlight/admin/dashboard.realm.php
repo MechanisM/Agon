@@ -18,7 +18,7 @@
 								<div class='c3'>
 									<div class='col'>				
 										<label>Name <span class='small-txt'>Required</span> </label>
-										<input type="text" name="title" value=""   maxlength='50' />
+										<input type="text" name="newposttitle" value=""   maxlength='50' />
 									</div>
 								<div class='col'>
 									<label>Section <span class='small-txt'>Required</span> </label>
