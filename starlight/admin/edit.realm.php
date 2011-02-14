@@ -29,6 +29,7 @@
 			$redis->rpush("slight.post.".$id, null); # Time (in weeks) to disable comments after
 			$redis->rpush("slight.post.".$id, null); # Markup language
 			$redis->rpush("slight.post.".$id, false); # Is the post live?
+                        $redis->rpush("slight.post.".$id, ''); # Custom Classes
 			$title = $_POST['newposttitle'];
 			$body = "";
 		} else if($_POST['section_id'] == '2') {
