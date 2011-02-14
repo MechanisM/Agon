@@ -6,7 +6,7 @@
 		
     include 'header.tpl.php'; # Makesure we have the header included
 ?>
-<?php for ($i= $this->limit[0]; $i >= $this->limit[1]; $i--): ?>
+<?php for ($i= $this->limits[0]; $i >= $this->limits[1]; $i--): ?>
     <?php if(isset($this->posts[$i])): ?> <!-- If there is a value -->
         <!-- We need a better way to do this. Maybe a better theme engine? -->
         <?php $info = meta2obj($this->posts,$i); ?>
@@ -31,7 +31,9 @@
             </div>
         </div>      
     <?php endif;?>
-<?php endfor; ?>
+<?php endfor; if(count($this->posts) == 0): ?>
+        Sorry, there are no posts at this time.
+<?php endif; ?>
 <?php
     include 'footer.tpl.php'; # Makesure we have the header included
 ?>
