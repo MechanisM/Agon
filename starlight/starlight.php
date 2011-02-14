@@ -73,8 +73,8 @@
                     
                     $c = count($post);
                     for($i = 0;$i<$c;$i++){
-                        if($redis->lindex($post[$i],9) != 'true')
-                            unset($post[$i]); # Remove the value if it is blocked
+                        if($redis->lindex($post[$i],9) == 'false')
+                                unset($post[$i]);
                     }
                     $tpl->limits = array(
 			(( $num * $limit ) - $limit), # Min
