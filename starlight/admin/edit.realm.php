@@ -1,8 +1,8 @@
 <?php 
 	require 'theme/header.tpl.php';
-	
+
 	// We are editing a new page
-	if(isset($_POST['title'])) {
+	if(isset($_POST['newposttitle'])) {
 		if($_POST['section_id'] == '1') {
 			$y = $redis->keys("slight.post.*");
 			$c = count($y);
@@ -14,11 +14,13 @@
 			}
 
 			$redis->rpush("slight.post.".$id,$id);	
-			$slug = strtolower(str_replace(' ', '-', $_POST['title']));
-			$redis->set("slight.slug.".$slug, $id);	# Set the slug, so we can access it
-			$redis->set("slight.slug.".$id, $slug); # We can access the post via id or slug
+			$slug = strtolower(str_replace(' ', '-', $_POST['newposttitle']));
+			$redis->mset(array(
+				"slight.slug.".$slug => $id,
+				"slight.slug.".$id => $slug
+			));	# Set the slug, so we can access it
 			$redis->rpush("slight.post.".$id, $slug);
-			$redis->rpush("slight.post.".$id, strip_tags(trim($_POST['title']))); # Set the title in the 3rd place
+			$redis->rpush("slight.post.".$id, strip_tags(trim($_POST['newposttitle']))); # Set the title in the 3rd place
 			$redis->rpush("slight.post.".$id, null); # We add the time when the post is saved
 			$redis->rpush("slight.post.".$id, "Admin"); # TODO Make it add the actual username
 			$redis->rpush("slight.post.".$id, null); # Make the body null
@@ -27,7 +29,8 @@
 			$redis->rpush("slight.post.".$id, null); # Time (in weeks) to disable comments after
 			$redis->rpush("slight.post.".$id, null); # Markup language
 			$redis->rpush("slight.post.".$id, false); # Is the post live?
-			$title = $_POST['title'];
+			$title = $_POST['newposttitle'];
+			$body = "";
 		} else if($_POST['section_id'] == '2') {
 			$slug = strtolower(str_replace(' ', '-', $_POST['title']));
 			$id = $slug;
@@ -39,6 +42,8 @@
 		}
 	} else if(isset($_POST['edit'])) {
 		$id = (int) $_POST['edit'];
+		echo "Editing";
+		var_dump($_POST);
 		if(is_int($id) and $redis->exists("slight.post.".$id)) { # We have an id. 
 			if(trim($_POST['content']) == '') {
 				die("You need to enter some content. ".trim($_POST['content']));
@@ -56,15 +61,17 @@
 			
 			$redis->lset("slight.post.".$id, 8, $_POST['marklang']);
 			$redis->lset("slight.post.".$id, 9, $_POST['publish']);
-			header("Location: ?f=edit&id=".$id);	
+			//header("Location: ?f=edit&id=".$id);	
 		} else if ($redis->exists("slight.page.".$id)) {
 			$redis->lset("slight.post.".$id, 3, $_POST['content']);
 			$redis->lset("slight.post.".$id, 4, $_POST['marklang']);
 			$redis->lset("slight.post.".$id, 5, $_POST['publish']);
-			header("Location: ?f=edit&id=".$id);
+			//header("Location: ?f=edit&id=".$id);
 		}
 	} else if(isset($_GET['id'])) {
 		$id = (int) $_GET['id'];
+		echo "Second";
+
 		if(is_int($id)) {
 			$title = $redis->lindex('slight.post.'.$id,2);
 			$body = $redis->lindex('slight.post.'.$id,5);
@@ -91,7 +98,7 @@
 					</div>
 				
 					<!-- BODY BEGIN -->
-					<form name='mform' action='' method='post' >
+					<form name='mform' action='?f=edit' method='post' >
 						<input type="hidden" value='<?php echo $id; ?>' name='edit' />
 						<div id='tab'>
 							<div class='c5'>
@@ -112,13 +119,13 @@
 											<div class='col txt-right' style='margin-top:18px;'>
 <!--											&nbsp;<input name='preview' type='image' src='admin/theme/img/f-prev.gif' title='Preview (without saving)' class='btn btn-off' onmouseover="this.className='btn btn-over'" onmouseout="this.className='btn btn-off'" style='margin-bottom:0;' onclick="previewText(3); return false;" />
 -->												<a href="?f=edit&del=<?php echo $id; ?>" title='Delete' class='btn btn-off' onClick="javascript:return confirm('Are you sure?');"><img src='admin/theme/img/delete.gif' alt'[]' /></a>
-												<input name='save' type='image' src='admin/theme/img/save.gif' title='Save/Preview'  class='btn btn-off' onmouseover="this.className='btn btn-over'" onmouseout="this.className='btn btn-off'" style='margin-bottom:0;' onclick="updateText(3); return false;" />
 											</div>
 											<div class='cl'><!-- --></div>
 
 <textarea name='content' class='content' id='jxcontent' style='width:625px;'>
 <?php echo $body; ?>
 </textarea>
+											<input type="submit" value="Save" />
 											<div class='cl'><!-- --></div>
 										</div>
 										<div id='img-container'>
@@ -133,16 +140,15 @@
 									<div class='colB-set'>
 										<div class='colB-pad'>
 											<label>Publish</label><br />
-												<ul class='listed' id='p-status'>
-													<li id='p-on'>On</li>
-													<li class='active' title='0' id='p-off'>Off</li>
-												</ul>
-												<input name="publish" id='p-form' value='false' type='hidden' />
+											<select id='c-select' name='publish'>
+												<option value="false" <?php if($redis->lindex("slight.post.".$id, 5) == 'false') echo 'selected="selected"'; ?>>False</option>
+												<option value="true" <?php if($redis->lindex("slight.post.".$id, 5) == 'true') echo 'selected="selected"'; ?>>True</option>
+											</select>
 												
 												<label>Comments</label><br />
 												<ul class='listed' id='c-status'>
-													<li class='active' id='c-on'>On</li>
-													<li title='0' id='c-off'>Off</li>
+													<li id='c-on'>On</li>
+													<li  id='c-off'>Off</li>
 												</ul>
 												<input name="comments" id='c-form' value='true' type='hidden' />
 												
