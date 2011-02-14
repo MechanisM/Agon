@@ -124,7 +124,7 @@
                             <div class='cl'><!-- --></div>
 
                             <textarea name='content' class='content' id='jxcontent' style='width:625px;'>
-                                <?php echo $body; ?>
+<?php echo $body; ?>
                             </textarea>
                             <input type="submit" value="Save" />
                             <div class='cl'><!-- --></div>
