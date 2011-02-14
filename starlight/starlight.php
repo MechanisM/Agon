@@ -95,10 +95,10 @@
 		private function showpost($num){
                     global $redis, $tpl, $textile;
 			
-                    $id = $redis->get(('slight.slug.'.$num));
+                    $id = $redis->get('slight.slug.'.$num);
                     $tpl->id = $id;
                     $tpl->slug = $num;
-                    $tpl->title = $redis->lindex(('slight.post.'.$id),2);
+                    $tpl->title = $redis->lindex('slight.post.'.$id,2);
                     $tpl->date = $redis->lindex(('slight.post.'.$id),3);
                     $tpl->class = $redis->lindex('slight.post.' . $id, 10);
                         
