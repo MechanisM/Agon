@@ -14,29 +14,31 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 include '../config.php';
 include 'kickstarter.php';
+
 if(!s_admin)
-	fail("The Admin has been hard disabled","hardAdminDisabled",'503 Service Unavailable');
+    fail("The Admin has been hard disabled","hardAdminDisabled",'503 Service Unavailable');
 
 if (!isset($_SESSION['s.admin'])) {
-	if($_POST) {
-		$u = $redis->lrange('slight.config.users',0,2);
-		if ($_POST['uid'] != $u[0] or md5($_POST['pwd']) != $u[1]) {
-			fail("Invalid login information","AdminInvalidInfo");
-		} else {
-			$_SESSION['s.admin'] = true;
-			header("Location: ?");
-		}
+    if($_POST) {
+	$u = $redis->lrange('slight.config.users',0,2);
+	if ($_POST['uid'] != $u[0] or md5($_POST['pwd']) != $u[1]) {
+            fail("Invalid login information","AdminInvalidInfo");
 	} else {
-		include 'admin/login.tpl.php';
-		die();
+            $_SESSION['s.admin'] = true;
+            header("Location: ?");
 	}
+    } else {
+        include 'admin/login.tpl.php';
+        die();
+    }
 }
 
 if (isset($_GET['f'])) {
-	if(!include 'admin/'.$_GET['f'].'.realm.php')
-		fail('The requested realm was not fouund', 'AdminRealmNotFound');	
+    if(!include 'admin/'.$_GET['f'].'.realm.php')
+	fail('The requested realm was not fouund', 'AdminRealmNotFound');	
 } else {
 	# Default to write
 	include 'admin/dashboard.realm.php';
