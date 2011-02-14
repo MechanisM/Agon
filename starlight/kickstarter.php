@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
-	require_once _PATH."/classes/predis/Predis.php";	# Database
-	require_once _PATH."/starlight.php";				# Core		
-	require_once _PATH.'/classes/Savant3.php';	# Formatting
-	require_once _PATH.'/classes/classTextile.php';	# Formatting
+	require_once _PATH_ . "/classes/predis/Predis.php";	# Database
+	require_once _PATH_ . "/starlight.php";				# Core		
+	require_once _PATH_ . '/classes/Savant3.php';	# Formatting
+	require_once _PATH_ . '/classes/classTextile.php';	# Formatting
 	
 	$redis = new Predis_Client($single_server);			# Start the Redis connection
 	$s = new starlight();								# Start the basic classes
@@ -26,36 +26,37 @@
 	$textile = new Textile();
 	
 	function _c($a) {
-		global $redis;
-		return $redis->get($a);
+            global $redis;
+            return $redis->get($a);
 	}	
 	function _i($a,$b) { 
-		global $redis;
-		return $redis->lindex($a,$b);
+            global $redis;
+            return $redis->lindex($a,$b);
 	}
 
 	function gC($i){
-		global $s;
-		$s->readcomments($i);
+            global $s;
+            $s->readcomments($i);
 	}
 	
 	function fail($msg,$code, $header = false) {
-		if($header)
-			header($header);
+            if($header)
+		header($header);
 			
-		die($msg."<br />Read more on this error <a href='http://in.decay.me/bouncer/starlight/?bounce=error&code=".$code."'>here</a>");
+            die($msg."<br />Read more on this error <a href='http://in.decay.me/bouncer/starlight/?bounce=error&code=".$code."'>here</a>");
 	}
 	
 	function meta2obj($arr,$i) {
-		return (object) array(  'id' => _i($arr[2][$i],0),
-                                        'slug' => _i($arr[2][$i],1),
-                                        'title' => _i($arr[2][$i],2), 
-                                        'date' => _i($arr[2][$i],3), 
-                                        'author' => _i($arr[2][$i],4), 
-                                        'body' => _i($arr[2][$i],5));
+            return (object) array(  'id' => _i($arr[2][$i],0),
+                                    'slug' => _i($arr[2][$i],1),
+                                    'title' => _i($arr[2][$i],2), 
+                                    'date' => _i($arr[2][$i],3), 
+                                    'author' => _i($arr[2][$i],4), 
+                                    'body' => _i($arr[2][$i],5),
+                                 );
 	}
 	
 	function url($place) {
-		if(_c('slight.config.cleanurl') == 'true')
-			return _c('slight.config.siteurl').'/'.$place;
+            if(_c('slight.config.cleanurl') == 'true')
+                return _c('slight.config.siteurl').'/'.$place;
 	}
