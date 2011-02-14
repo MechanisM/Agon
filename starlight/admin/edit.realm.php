@@ -43,31 +43,20 @@
         }
     } else if (isset($_POST['edit'])) {
         $id = (int) $_POST['edit'];
-        echo "Editing";
-        var_dump($_POST);
         if (is_int($id) and $redis->exists("slight.post." . $id)) { # We have an id. 
             if (trim($_POST['content']) == '') {
                 die("You need to enter some content. " . trim($_POST['content']));
             }
-
             $redis->lset("slight.post." . $id, 3, time());
             $redis->lset("slight.post." . $id, 5, $_POST['content']);
-            if ($_POST['comments'] == 'true') {
-                $redis->lset("slight.post." . $id, 6, true);
-                $redis->lset("slight.post." . $id, 7, $_POST['distime']);
-            } else {
-                $redis->lset("slight.post." . $id, 6, false);
-                $redis->lset("slight.post." . $id, 7, 0);
-            }
-
             $redis->lset("slight.post." . $id, 8, $_POST['marklang']);
             $redis->lset("slight.post." . $id, 9, $_POST['publish']);
-            //header("Location: ?f=edit&id=".$id);	
+            header("Location: ?f=edit&id=".$id);	
         } else if ($redis->exists("slight.page." . $id)) {
             $redis->lset("slight.post." . $id, 3, $_POST['content']);
             $redis->lset("slight.post." . $id, 4, $_POST['marklang']);
             $redis->lset("slight.post." . $id, 5, $_POST['publish']);
-            //header("Location: ?f=edit&id=".$id);
+            header("Location: ?f=edit&id=".$id);
         }
     } else if (isset($_GET['id'])) {
         $id = (int) $_GET['id'];
@@ -141,19 +130,12 @@
                     <div class='colB-set'>
                         <div class='colB-pad'>
                             <label>Publish</label><br />
-                            <select id='c-select' name='publish'>
+                            <select id='publish' name='publish'>
                                 <option value="false" <?php if ($redis->lindex("slight.post." . $id, 5) == 'false')
                                     echo 'selected="selected"'; ?>>False</option>
                                 <option value="true" <?php if ($redis->lindex("slight.post." . $id, 5) == 'true')
                                     echo 'selected="selected"'; ?>>True</option>
                             </select>
-
-                            <label>Comments</label><br />
-                            <ul class='listed' id='c-status'>
-                                <li id='c-on'>On</li>
-                                <li  id='c-off'>Off</li>
-                            </ul>
-                            <input name="comments" id='c-form' value='true' type='hidden' />
 
                             <label id='c-label'>Disable Comments after</label>
                             <select id='c-select' name='distime'>
@@ -164,7 +146,6 @@
                                 <option value="2">2 Weeks</option>
                                 <option value="1">1 Week</option>
                             </select>
-                            <input name="publish" id='p-form' value='false' type='hidden' />
                             <div style='margin: 3px 0 5px 0;' ">
                                  <label style='cursor:pointer;' id="toggle-asettings">Additional Settings</label>
                                 <div id='adt-options' style='padding-top:12px;'>			
