@@ -1,5 +1,5 @@
 <?php
-    if($this->)
+
     include 'header.tpl.php'; # Makesure we have the header included
 ?>
     <div id="post-">
@@ -17,8 +17,8 @@
     </div><!-- .post -->
 
 <?php
-gC($this->id); # Get the comments
-include 'comment.form.tpl.php'; # Show Comment form
+    gC($this->id); # Get the comments   \
+    include 'comment.form.tpl.php'; # Show Comment form
 ?>
 <?php
 include 'footer.tpl.php'; # Makesure we have the header included

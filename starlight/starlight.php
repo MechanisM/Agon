@@ -95,7 +95,7 @@
 		private function showpost($num){
                     global $redis, $tpl, $textile;
 			
-                    $id = gS($num);
+                    $id = $redis->get(('slight.slug.'.$num));
                     $tpl->id = $id;
                     $tpl->slug = $num;
                     $tpl->title = $redis->lindex(('slight.post.'.$id),2);
