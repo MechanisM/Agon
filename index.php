@@ -15,16 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	//index.php file for Starlight. Yo
-	if(!file_exists("config.php"))
-		die("Starlight has not been installed or the config file is corrupt. Please go <a href='starlight/'>Here to start the installer</a>");
+    //index.php file for Starlight. Yo
+    if(!file_exists("config.php"))
+        die("Starlight has not been installed or the config file is corrupt. Please go <a href='starlight/'>Here to start the installer</a>");
 	
-	require 'config.php';
-	require 'starlight/kickstarter.php';
+    require 'config.php';
+    require 'starlight/kickstarter.php';
 	
-	if(isset($_GET['f']))
-		$s->addvar($_GET['f']);
+    if(isset($_GET['f']))
+        $s->addvar($_GET['f']);
 	
-	$s->start();
+    $s->start();
 
 ?>
