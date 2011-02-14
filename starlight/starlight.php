@@ -74,7 +74,7 @@
                     $c = count($post);
                     for($i = 0;$i<$c;$i++){
                         if($redis->lindex($post[$i],9) != 'true')
-                            $post[$i] = null; # Remove the value if it is blocked
+                            unset($post[$i]); # Remove the value if it is blocked
                     }
                     $tpl->limits = array(
 			(( $num * $limit ) - $limit), # Min
@@ -82,7 +82,7 @@
                     );
                     $tpl->posts = $post;
                     $tpl->nav = array(
-			(($num * $limit) < count($posts) ? true : false), # Back
+			(($num * $limit) < count($post) ? true : false), # Back
 			($num > 1 ? true : false) # Next?
                     );
                     $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/posts.tpl.php");
