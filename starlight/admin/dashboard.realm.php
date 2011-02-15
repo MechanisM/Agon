@@ -55,7 +55,7 @@
 						$h = count($posts);
 						for($x = 0; $x<$h; $x++) {
 							$z = $redis->lrange($posts[$x],0,9);
-							echo '<li class="sortableitem published" id="item2">'.$z[1].'<span class="options" style="color: #000;"><a href="?a=exhibits&amp;q=prv&amp;id=2">Preview</a> <a href="?f=edit&amp;id='.$z[0].'">Edit</a></span></li>';
+							echo '<li class="sortableitem published" id="item2">'.$z[2].'<span class="options" style="color: #000;"><a href="?a=exhibits&amp;q=prv&amp;id=2">Preview</a> <a href="?f=edit&amp;id='.$z[0].'">Edit</a></span></li>';
 						}
 						?>
 					
