@@ -61,11 +61,12 @@
                 return _c('slight.config.siteurl').'/'.$place;
 	}
     
-    function truncate($string, $limit = 100) {
-        // Return early if the string is already shorter than the limit
-        if(strlen($string) < $limit) {return $string;}
-
-        $regex = "/(.{1,$limit})\b/";
-        preg_match($regex, $string, $matches);
-        return $matches[1];
+    function truncate($str, $n, $delim='...') {
+       $len = strlen($str);
+       if ($len > $n) {
+           preg_match('/(.{' . $n . '}.*?)\b/', $str, $matches);
+           return rtrim($matches[1]) . $delim;
+       } else {
+           return $str;
+       }
     }
