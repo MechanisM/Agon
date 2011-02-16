@@ -21,7 +21,7 @@
 	* @copyright 2010 Colum McGaley
 	* @license GUN Public Licence
 	* @version Release: @package_version@
-	* @link http://(domain)/redir/starlight
+	* @link http://projects.archangel.io/starlight
 	* @since Class available since Release 0.0.1
 	*/ 
 	class starlight {
@@ -45,20 +45,20 @@
 		* Function to start the system, and does all the processing
 		*/ 
 		public function start(){
-			if($this->func and $this->prams) { # Check if we have a function that we need to run
-				switch($this->func){ # Switchboard for the functions in which we will call localized functions
-					case 'page': 
-						$this->showpage($this->prams); 	break;
-					case 'post':
-						$this->showpost($this->prams); 	break;
-					case 'static': 
-						$this->showstatic($this->prams);break;
-					case 'comment':
-						$this->addcomment($this->prams);break;
-				}
-			} else { # Just do the generic list latest posts in the database
-				$this->showpage(1);
-			}
+            if($this->func and $this->prams) { # Check if we have a function that we need to run
+                switch($this->func){ # Switchboard for the functions in which we will call localized functions
+                    case 'page': 
+                        $this->showpage($this->prams); 	break;
+                    case 'post':
+                        $this->showpost($this->prams); 	break;
+                    case 'static': 
+                        $this->showstatic($this->prams);break;
+                    case 'comment':
+                        $this->addcomment($this->prams);break;
+                }
+            } else { # Just do the generic list latest posts in the database
+                $this->showpage(1);
+            }
 		}
 	  /**
 		* Function called to show the posts for the inputted page number
@@ -77,13 +77,13 @@
                                 unset($post[$i]);
                     }
                     $tpl->limits = array(
-			(( $num * $limit ) - $limit), # Min
-			(( $num * $limit )) # Max
+                        (( $num * $limit ) - $limit), # Min
+                        (( $num * $limit )) # Max
                     );
                     $tpl->posts = $post;
                     $tpl->nav = array(
-			(($num * $limit) < count($post) ? true : false), # Back
-			($num > 1 ? true : false) # Next?
+                        (($num * $limit) < count($post) ? true : false), # Back
+                        ($num > 1 ? true : false) # Next?
                     );
                     $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/posts.tpl.php");
 		}
@@ -191,5 +191,7 @@
 				
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/static.tpl.php");
 		}
+        
+
 	}
 ?>
