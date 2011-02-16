@@ -52,7 +52,7 @@
                                     'title' => _i($arr,2), 
                                     'date' => _i($arr,3), 
                                     'author' => _i($arr,4), 
-                                    'body' => _i($arr,5),
+                                    'body' => truncate(_i($arr,5),500),
                                  );
 	}
 	
@@ -60,3 +60,12 @@
             if(_c('slight.config.cleanurl') == 'true')
                 return _c('slight.config.siteurl').'/'.$place;
 	}
+    
+    function truncate($string, $limit = 100) {
+        // Return early if the string is already shorter than the limit
+        if(strlen($string) < $limit) {return $string;}
+
+        $regex = "/(.{1,$limit})\b/";
+        preg_match($regex, $string, $matches);
+        return $matches[1];
+    }
