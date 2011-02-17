@@ -145,19 +145,19 @@
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comments.tpl.php");
 		}
 
-		public function addcomment($slug, $in) {
+		public function addcomment($slug) {
 			global $redis;
-			if(!$_POST or !$_POST['post_ID']) {
+			if(!$_POST) {
 				header("Location: ?");
 			}
 
 			if(trim($_POST['author']) == "" or trim($_POST['email']) == "" or trim($_POST['comment']) == "" or trim($_POST['human']) == "") {
 				die("One of the required fields was not filled in");
 			}	
-				if(!eregi("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $in['email'])){
+				if(!eregi("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $_POST['email'])){
 					die("Invalid Email");
 				}
-			if($in['human'] != '5') { # 2 + 3
+			if($_POST['human'] != '5') { # 2 + 3
 				die("You are not human");
 			}
 			$comments = $redis->keys('slight.comments.'.$slug.'.*');
@@ -165,10 +165,10 @@
 			$d = ($redis->lindex($comments[($r - 1)],0)) + 1;
 			
 			$redis->rpush('slight.comments.'.$slug.'.'.$d,$d);
-			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['author']); //TODO Add removal of tags
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$_POST['author']); //TODO Add removal of tags
 			$redis->rpush('slight.comments.'.$slug.'.'.$d,'date');
-			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['email']);
-			$redis->rpush('slight.comments.'.$slug.'.'.$d,$in['comment']); //TODO Add removal of tags
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$_POST['email']);
+			$redis->rpush('slight.comments.'.$slug.'.'.$d,$_POST['comment']); //TODO Add removal of tags
 			header("Location: ?f=post/".$slug);			
 		}
 	  /**
