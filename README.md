@@ -1,6 +1,6 @@
 Introduction
 ------------
-Starlight is a blogging platform that uses Redis as a database
+Starlight is a blogging platform that uses Redis as a database.
 
 Server Requirements
 ----------
@@ -17,8 +17,7 @@ Make sure you have Redis online, and config.php writeable by the server
 Todo
 -----
 * Add startup database check to prevent Predis Errors
-* Add a check to see if site is live or not (access if admin is logged in)
 * RSS
-** Add a moderation function (v0.2)
+* Add a moderation function
 
-Current Development Version : v0.1.8 
+Current Development Version : v0.3.1 
