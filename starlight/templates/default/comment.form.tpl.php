@@ -1,9 +1,8 @@
 <div id="comments">
     <div id="respond">
         <h3>Post a Comment</h3>    				
-        <div id="cancel-comment-reply"><a rel="nofollow" id="cancel-comment-reply-link" href="/demo/thematic/?p=54#respond" style="display:none;">Click here to cancel reply.</a></div>
         <div class="formcontainer">	
-            <form id="commentform" action="?f=comment" method="post">
+            <form id="commentform" action="?f=comment/<?php echo $this->slug; ?>" method="post">
                 <p id="comment-notes">Your email is <em>never</em> published nor shared. Required fields are marked <span class="required">*</span></p>
                 <div id="form-section-author" class="form-section">
                     <div class="form-label"><label for="author">Name</label> <span class="required">*</span></div>
@@ -29,7 +28,6 @@
                     <div class="form-textarea"><input id="human" name="human" type="text" value="" size="30" maxlength="2" tabindex="6" /></div>
                 </div>
                 <div class="form-submit"><input id="submit" name="submit" type="submit" value="Post Comment" tabindex="7" /><input type="hidden" name="comment_post_ID" value="54" /></div>
-                <input type='hidden' name='post_ID' value='<?php echo $this->id; ?>' id='post_ID' />
             </form><!-- #commentform -->
         </div><!-- .formcontainer -->
     </div><!-- #respond -->
