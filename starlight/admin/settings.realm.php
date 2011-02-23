@@ -40,7 +40,7 @@
 								</select>
                                 
 								<label>Characters per each post <span class='small-txt'>Leave as 0 for unlimited</span></label>
-								<input type="text" name="list" value="<?php echo _c("slight.config.list"); ?>" />
+								<input type="text" name="trim" value="<?php echo _c("slight.config.trim"); ?>" />
                                 
 								<input type="submit" name="upd_user" value="Update"  />
 							</div>
