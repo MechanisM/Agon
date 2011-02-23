@@ -6,7 +6,7 @@
         <meta name="description" content="Just another WordPress weblog" />
         <link rel="stylesheet" type="text/css" href="http://themeshaper.com/demo/thematic/wp-content/themes/thematic/style.css" />
     </head>
-    <body class="<?php if($CustomClass) echo $CustomClass; ?>">
+    <body class="<?php if(isset($this->class)) echo $this->class; ?>">
         <div id="wrapper" class="hfeed">
             <div id="header">
                 <div id="branding">
