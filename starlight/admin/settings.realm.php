@@ -3,6 +3,7 @@
 	if($_POST) {
 		if(trim($_POST['title']) != "" and $_POST['title'] != _c("slight.config.name")) $redis->set("slight.config.name",$_POST['title']);
 		if(trim($_POST['desc']) != "" and $_POST['desc'] != _c("slight.config.desc")) $redis->set("slight.config.desc",$_POST['desc']);
+        if(trim($_POST['list']) and is_int($_POST['trim'])) $redis->set('slight.config.list');
 		$redis->set("slight.config.list",$_POST['posts_per_page']);
 		/*if(trim($_POST['password']) == trim($_POST['cpassword'])) {
 			$redis->lindex('slight.config.users',0,$_POST['userid']);
@@ -37,10 +38,10 @@
 									<option value="%A, %H:%M %p" >Saturday, 23:04 PM</option>
 									<option value="%Y-%m-%d %T" >2011-02-05 23:04:44</option>
 								</select>
-								<label>Language  </label>
-								<select name='user_lang'>
-									<option value="en-us"  selected>English</option>
-								</select>
+                                
+								<label>Characters per each post <span class='small-txt'>Leave as 0 for unlimited</span></label>
+								<input type="text" name="list" value="<?php echo _c("slight.config.list"); ?>" />
+                                
 								<input type="submit" name="upd_user" value="Update"  />
 							</div>
 							<div class='col'>

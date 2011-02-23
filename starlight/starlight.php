@@ -93,21 +93,21 @@
 		* @param string $num The slug of the post
 		*/ 
 		private function showpost($num){
-                    global $redis, $tpl, $textile;
+            global $redis, $tpl, $textile;
 			
-                    $id = $redis->get('slight.slug.'.$num);
-                    $tpl->id = $id;
-                    $tpl->slug = $num;
-                    $tpl->title = $redis->lindex('slight.post.'.$id,2);
-                    $tpl->date = $redis->lindex(('slight.post.'.$id),3);
-                    $tpl->class = $redis->lindex('slight.post.' . $id, 10);
+            $id = $redis->get('slight.slug.'.$num);
+            $tpl->id = $id;
+            $tpl->slug = $num;
+            $tpl->title = $redis->lindex('slight.post.'.$id,2);
+            $tpl->date = $redis->lindex(('slight.post.'.$id),3);
+            $tpl->class = $redis->lindex('slight.post.' . $id, 10);
                         
-                    if($redis->lindex(('slight.post.'.$id),8) == '1')
-                        $tpl->body =  $textile->TextileThis($redis->lindex(('slight.post.'.$id),5));
-                    else
-                        $tpl->body =  $redis->lindex(('slight.post.'.$id),5);
+            if($redis->lindex(('slight.post.'.$id),8) == '1')
+                $tpl->body =  $textile->TextileThis($redis->lindex(('slight.post.'.$id),5));
+            else
+                $tpl->body =  $redis->lindex(('slight.post.'.$id),5);
 				
-                    $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
+            $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
 		}
 		
 	  /**

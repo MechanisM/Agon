@@ -14,6 +14,7 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+session_start();
 
 include '../config.php';
 include 'kickstarter.php';
@@ -23,8 +24,8 @@ if(!s_admin)
 
 if (!isset($_SESSION['s.admin'])) {
     if($_POST) {
-	$u = $redis->lrange('slight.config.users',0,2);
-	if ($_POST['uid'] != $u[0] or md5($_POST['pwd']) != $u[1]) {
+        $u = $redis->lrange('slight.config.users',0,2);
+        if ($_POST['uid'] != $u[0] or md5($_POST['pwd']) != $u[1]) {
             fail("Invalid login information","AdminInvalidInfo");
 	} else {
             $_SESSION['s.admin'] = true;
