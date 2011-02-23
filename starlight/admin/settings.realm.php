@@ -73,6 +73,7 @@
 								</select>
 								<?php
 									if(file_exists('templates/'.$redis->get('slight.config.template').'/settings.php')) {
+                                        include 'templates/'.$redis->get('slight.config.template').'/settings.php';
 										if($_POST) {
 											save_settings();
 										} else {
