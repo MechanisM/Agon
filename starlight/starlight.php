@@ -103,9 +103,9 @@
                     $tpl->class = $redis->lindex('slight.post.' . $id, 10);
                         
                     if($redis->lindex(('slight.post.'.$id),8) == '1')
-			$tpl->body =  $textile->TextileThis($redis->lindex(('slight.post.'.$id),5));
+                        $tpl->body =  $textile->TextileThis($redis->lindex(('slight.post.'.$id),5));
                     else
-			$tpl->body =  $redis->lindex(('slight.post.'.$id),5);
+                        $tpl->body =  $redis->lindex(('slight.post.'.$id),5);
 				
                     $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
 		}

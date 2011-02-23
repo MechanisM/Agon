@@ -75,7 +75,7 @@
 										if($_POST) {
 											save_settings();
 										} else {
-											show_settings();
+											display_settings();
 										}
 									}
 								?>
