@@ -53,19 +53,17 @@
                                 'title' => _i($arr,2), 
                                 'date' => _i($arr,3), 
                                 'author' => _i($arr,4), 
-                                'body' => truncate(_i($arr,5),$redis->get('slight.config.trim')),
+                                'body' => truncate(_i($arr,5),500),
                              );
 	}
 	
 	function url($place) {
-            if(_c('slight.config.cleanurl') == 'true')
-                return _c('slight.config.siteurl').'/'.$place;
+        if(_c('slight.config.cleanurl') == 'true')
+            return _c('slight.config.siteurl').'/'.$place;
 	}
     
     function truncate($str, $n, $delim='...') {
-        if($n == 0) {
-            return $str;
-        } else {
+        
             $len = strlen($str);
             if ($len > $n) {
                 preg_match('/(.{' . $n . '}.*?)\b/', $str, $matches);
@@ -73,5 +71,5 @@
             } else {
                 return $str;
             }   
-        }
+        
     }

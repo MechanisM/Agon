@@ -67,25 +67,32 @@
 		*/ 
 		# This is the function to show the post list
 		public function showpage($num){
-                    global $redis, $tpl;
-                    $post = $redis->keys('slight.post.*');
-                    $limit = $redis->get("slight.config.list"); # The number to show per page
+            global $redis, $tpl;
+            $post = $redis->keys('slight.post.*');
+            $limit = $redis->get("slight.config.list"); # The number to show per page
                     
-                    $c = count($post);
-                    for($i = 0;$i<$c;$i++){
-                        if($redis->lindex($post[$i],9) == 'false')
-                                unset($post[$i]);
-                    }
-                    $tpl->limits = array(
-                        (( $num * $limit ) - $limit), # Min
-                        (( $num * $limit )) # Max
-                    );
-                    $tpl->posts = $post;
-                    $tpl->nav = array(
-                        (($num * $limit) < count($post) ? true : false), # Back
-                        ($num > 1 ? true : false) # Next?
-                    );
-                    $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/posts.tpl.php");
+            $c = count($post);
+            for($i = 0;$i<$c;$i++){
+                if($redis->lindex($post[$i],9) == 'false')
+                    unset($post[$i]);
+            }
+            if($limit == 1) {
+                $tpl->limits = array(
+                    0, # Min
+                    1 # Max
+                );
+            }
+            
+            $tpl->limits = array(
+                (( $num * $limit ) - $limit), # Min
+                (( $num * $limit )) # Max
+            );
+            $tpl->posts = $post;
+            $tpl->nav = array(
+                (($num * $limit) < count($post) ? true : false), # Back
+                ($num > 1 ? true : false) # Next?
+            );
+            $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/posts.tpl.php");
 		}
 	  /**
 		* Function called to show a single post
