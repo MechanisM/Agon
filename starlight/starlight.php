@@ -21,18 +21,19 @@
 	* @copyright 2010 Colum McGaley
 	* @license GUN Public Licence
 	* @version Release: @package_version@
-	* @link http://projects.archangel.io/starlight
-	* @since Class available since Release 0.0.1
+	* @link http://projects.archangel.io/agon
+	* @since starlight-0.0.1-TRUNK
 	*/ 
 	class starlight {
 		public $func = "";
 		public $prams = "";
 		
-	  /**
-		* This function is used to define the current function for the system
-		*
-		* @param URI $v The request URi 
-		*/ 
+		/**
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @param string $v
+		 * @since starlight-0.0.1-TRUNK
+		 */
 		public function addvar($v) {
 			if($v) {	# Make sure we actually have data to read, if we dont, we dont want errors to displayed.
 				$v = explode("/",$v); # Here we will seperate page and the number
@@ -41,9 +42,12 @@
 			}
 		}
 		
-	  /**
-		* Function to start the system, and does all the processing
-		*/ 
+		/**
+		 * Function called to run the system
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @since starlight-0.0.1-TRUNK
+		 */
 		public function start(){
             if($this->func and $this->prams) { # Check if we have a function that we need to run
                 switch($this->func){ # Switchboard for the functions in which we will call localized functions
@@ -55,17 +59,20 @@
                         $this->showstatic($this->prams);break;
                     case 'comment':
                         $this->addcomment($this->prams);break;
+					case 'rss' :
+						$this->makerss();				break;
                 }
             } else { # Just do the generic list latest posts in the database
                 $this->showpage(1);
             }
 		}
-	  /**
-		* Function called to show the posts for the inputted page number
-		*
-		* @param integer $num The current page number
-		*/ 
-		# This is the function to show the post list
+		/**
+		 * Function to list all the posts for the given page number
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @param int $num
+		 * @since starlight-0.0.1-TRUNK
+		 */
 		public function showpage($num){
             global $redis, $tpl;
             $post = $redis->keys('slight.post.*');
@@ -81,12 +88,12 @@
                     0, # Min
                     1 # Max
                 );
-            }
-            
-            $tpl->limits = array(
-                (( $num * $limit ) - $limit), # Min
-                (( $num * $limit )) # Max
-            );
+            } else {
+				$tpl->limits = array(
+				    (( $num * $limit ) - $limit), # Min
+				    (( $num * $limit )) # Max
+				);
+			}
             $tpl->posts = $post;
             $tpl->nav = array(
                 (($num * $limit) < count($post) ? true : false), # Back
@@ -94,11 +101,13 @@
             );
             $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/posts.tpl.php");
 		}
-	  /**
-		* Function called to show a single post
-		*
-		* @param string $num The slug of the post
-		*/ 
+		/**
+		 * Function to show an single post
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @param int $num
+		 * @since starlight-0.0.1-TRUNK
+		 */ 
 		private function showpost($num){
             global $redis, $tpl, $textile;
 			
@@ -117,11 +126,13 @@
             $tpl->display("starlight/templates/".$redis->get('slight.config.template')."/page.tpl.php");
 		}
 		
-	  /**
-		* Function called to show the comments for a post
-		*
-		* @param int $id The ID of the bost
-		*/ 		
+		/**
+		 * Function to read the comments for a given article
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @param int $id
+		 * @since starlight-0.1.3-TRUNK
+		 */ 		
 		public function readcomments($id){
 			global $redis, $tpl, $textile;
 			
@@ -151,7 +162,14 @@
 			$tpl->max = $i;
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comments.tpl.php");
 		}
-
+		/**
+		 * Fuunction to add a comment to a post
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @param int $slug
+		 * @since starlight-0.1.4-TRUNK
+		 * @todo Make sure this function uses the ID of a post, not the slug
+		 */
 		public function addcomment($slug) {
 			global $redis;
 			if(!$_POST) {
@@ -178,11 +196,13 @@
 			$redis->rpush('slight.comments.'.$slug.'.'.$d,$_POST['comment']); //TODO Add removal of tags
 			header("Location: ?f=post/".$slug);			
 		}
-	  /**
-		* Function called to show a static page
-		*
-		* @param str $slug The page slug
-		*/
+		/**
+		 * Function to show a single page
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @param string $slug
+		 * @since starlight-0.0.3-TRUNK
+		 */
 		public function showstatic($slug) {
 			global $redis, $textile, $tpl;
 			$page = $redis->lrange("slight.page.".$slug,0,4);
@@ -198,7 +218,5 @@
 				
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/static.tpl.php");
 		}
-        
-
 	}
 ?>
