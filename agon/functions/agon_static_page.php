@@ -15,13 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	session_start();
-    
-    if(!file_exists("config.php"))
-        die("Starlight has not been installed or the config file is corrupt. Please go <a href='starlight/'>Here to start the installer</a>");
-	
-    require 'config.php';
-    require 'agon/kickstarter.php';
-	
-	
+	/**
+	 * Function to show a single page
+	 * @author Colum McGaley <c.mcgaley@gmail.com>
+	 * @license GUN Public Licence
+	 * @param string $slug
+	 * @since starlight-0.0.3-TRUNK
+	 */
+	public function showstatic($slug) {
+		global $redis, $textile, $tpl;
+		$page = $redis->lrange("slight.page.".$slug,0,4);
+
+		$tpl->id = $page[0];
+		$tpl->slug = $slug;
+		$tpl->title = $page[1];
+
+		if($page[4] == '1')
+			$tpl->body =  $textile->TextileThis($page[2]);
+		else
+			$tpl->body =  $page[2];
+
+		$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/static.tpl.php");
+	}
 ?>

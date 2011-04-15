@@ -1,8 +1,8 @@
 <?php
-    define("s_version", "0.3.3");
+    define("s_version", "dev.agon-0.4.6");
 	define("s_release", true); # Set to false for develoment
 	define("s_admin", true); # Set to false to disable the admin
-	define("_PATH_", dirname(__FILE__).'/starlight');
+	define("_PATH_", dirname(__FILE__).'/agon');
 	
 	$single_server = array(
     	'host'     => '127.0.0.1', 

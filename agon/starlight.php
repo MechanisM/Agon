@@ -218,5 +218,21 @@
 				
 			$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/static.tpl.php");
 		}
+		/**
+		 * @author Colum McGaley <c.mcgaley@gmail.com>
+		 * @license GUN Public Licence
+		 * @param string $v
+		 * @since starlight-0.0.1-TRUNK
+		 */
+		private function makerss() {
+			global $redis;
+			
+			$posts = $redis->keys('slight.post.*'); # we get all the posts
+			$limit = 10;
+			array_splice($posts, $limit, $limit);
+			
+			
+			include 'starlight/classes/mrRssfeed.php';
+		}
 	}
 ?>

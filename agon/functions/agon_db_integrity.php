@@ -15,13 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	session_start();
-    
-    if(!file_exists("config.php"))
-        die("Starlight has not been installed or the config file is corrupt. Please go <a href='starlight/'>Here to start the installer</a>");
-	
-    require 'config.php';
-    require 'agon/kickstarter.php';
-	
-	
+	function check_db_integrity() {
+		global $redis;
+		if(AGON_DEBUGGING > 2) {
+			
+			set_error_level(1);
+			
+			if(!$redis->exists('slight.config.template')) log_error('key_not_found','slight.config.template',1);
+			if(!$redis->exists('slight.config.list')) log_error('key_not_found','slight.config.list',1);
+			if(!$redis->exists('slight.config.users')) log_error('admin_key_found','slight.config.list',2);
+			
+			//if(!$redis->exists('slight.config.list')) log_error('key_not_found','slight.config.list',1);
+			
+			
+			
+			error_log_breakpoint();
+		}
+	}
 ?>
