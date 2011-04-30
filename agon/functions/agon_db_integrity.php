@@ -23,12 +23,10 @@
 			
 			if(!$redis->exists('slight.config.template')) log_error('key_not_found','slight.config.template',1);
 			if(!$redis->exists('slight.config.list')) log_error('key_not_found','slight.config.list',1);
-			if(!$redis->exists('slight.config.users')) log_error('admin_key_found','slight.config.list',2);
+			if(!$redis->exists('slight.config.users')) log_error('admin_key_found','slight.config.users',2);
 			
 			//if(!$redis->exists('slight.config.list')) log_error('key_not_found','slight.config.list',1);
-			
-			
-			
+		
 			error_log_breakpoint();
 		}
 	}
