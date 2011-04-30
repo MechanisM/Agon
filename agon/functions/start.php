@@ -15,6 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+	function _c($a) {
+		global $redis;
+		return $redis->get($a);
+	}
+	function _i($a,$b) {
+		global $redis;
+		return $redis->lindex($a,$b);
+	}
+	function gS($s) {
+		return _c("slight.slug.".$s);
+	}
+	function gC($i){
+		global $s;
+		$s->readcomments($i);
+	}
 	function agon() {
 		
 		check_db_integrity();
@@ -27,15 +42,15 @@
 				require _PATH_ . '/functions/agon_page.php';
 				show_page($v[1]);
 			break;
-            case 'post':
+			case 'post':
 				require _PATH_ . '/functions/agon_post.php';
 				show_post($v[1]);
 			break;
-            case 'static': 
+			case 'static': 
 				require _PATH_ . '/functions/agon_static_page.php';
 				show_static_page($v[1]);
 			break;
-            case 'comment':
+			case 'comment':
 				require _PATH_ . '/functions/agon_comments.php';
 				add_comment($v[1]);
 			break;
