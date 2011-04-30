@@ -44,7 +44,7 @@
 			(($num * $limit) < count($post) ? true : false), # Back
 			($num > 1 ? true : false) # Next?
 		);
-		$tpl->display("starlight/templates/" . $redis->get('slight.config.template') . "/posts.tpl.php");
+		$tpl->display("agon/templates/" . $redis->get('slight.config.template') . "/posts.tpl.php");
 		
 		plugin_trigger_event('page_after_load');
 	}

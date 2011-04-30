@@ -1005,7 +1005,7 @@ class Savant3 {
 	{
 	    $output = $this->fetch($tpl);
         if ($this->isError($output)) {
-            $text = $this->__config['error_text'];
+            $text = $this->__config['error_text'] . $tpl;
             return $this->escape($text);
         } else {
             return $output;

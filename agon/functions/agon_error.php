@@ -26,7 +26,7 @@
 			if($level == 1)
 				die("<pre>Critical execption thrown. Shutting down.<br><br>".$name ." - ". $data);
 			else
-				echo "Error!" . $name .' - '. $data;
+				echo "Error! " . $name .' - '. $data;
 		}
 	}
 	
