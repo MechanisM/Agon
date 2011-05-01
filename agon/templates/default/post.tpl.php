@@ -17,7 +17,6 @@
     </div><!-- .post -->
 
 <?php
-echo "Hello";
     gC($this->slug); # Get the comments   \
     include 'comment.form.tpl.php'; # Show Comment form
 ?>
