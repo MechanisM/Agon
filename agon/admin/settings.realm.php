@@ -1,15 +1,27 @@
 <?php 
 	require 'theme/header.tpl.php';
 	if($_POST) {
-		if(trim($_POST['title']) != "" and $_POST['title'] != _c("slight.config.name")) $redis->set("slight.config.name",$_POST['title']);
-		if(trim($_POST['desc']) != "" and $_POST['desc'] != _c("slight.config.desc")) $redis->set("slight.config.desc",$_POST['desc']);
-        if(trim($_POST['list']) and is_int($_POST['trim'])) $redis->set('slight.config.list');
+		if(trim($_POST['title']) != "" and $_POST['title'] != _c("slight.config.name"))
+			$redis->set("slight.config.name",$_POST['title']);
+			
+		if(trim($_POST['desc']) != "" and $_POST['desc'] != _c("slight.config.desc"))
+			$redis->set("slight.config.desc",$_POST['desc']);
+			
+		if(trim($_POST['posts_per_page']) and $_POST['posts_per_page'] != _c("slight.config.list"))
+			$redis->set('slight.config.list', $_POST['posts_per_page']);
+		
 		$redis->set("slight.config.list",$_POST['posts_per_page']);
 		/*if(trim($_POST['password']) == trim($_POST['cpassword'])) {
 			$redis->lindex('slight.config.users',0,$_POST['userid']);
 			$redis->lindex('slight.config.users',1,md5($_POST['password']));
 		}*/
-		echo "<h2>Updated</h2>";
+		echo "
+			<h2 id='updated_h2'>Updated</h2>
+			<script type='text/javascript'>
+				//$('updated_h2').fla();
+				//Do some kind of flash then hide above
+			</script>
+		";
 	}
 ?>
 				<div id='main'>	
