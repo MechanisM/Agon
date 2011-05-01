@@ -21,7 +21,7 @@
 	require_once _PATH_ . "/functions/agon_db_integrity.php";
 	require_once _PATH_ . "/functions/agon_error.php";
 	require_once _PATH_ . "/functions/agon_plugins.php";
-	
+	require_once _PATH_ . "/functions/agon_theme.php";
 	
 	require_once _PATH_ . "/functions/start.php";
 	require_once _PATH_ . "/classes/predis/Predis.php";	# Database
