@@ -34,7 +34,7 @@
 		
 		plugin_trigger_event('page_before_template');
 
-		$tpl->display("starlight/templates/" . $redis->get('slight.config.template') . "/page.tpl.php");
+		$tpl->display("agon/templates/" . $redis->get('slight.config.template') . "/post.tpl.php");
 		
 		plugin_trigger_event('post_after_load');
 	}
