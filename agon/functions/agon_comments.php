@@ -49,7 +49,7 @@
 			}
 		}
 		$tpl->max = $i;
-		$tpl->display("starlight/templates/".$redis->get('slight.config.template')."/comments.tpl.php");
+		$tpl->display("agon/templates/".$redis->get('slight.config.template')."/comments.tpl.php");
 	}
 	/**
 	 * Fuunction to add a comment to a post
