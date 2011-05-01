@@ -22,7 +22,7 @@
 	 * @param int $id
 	 * @since starlight-0.1.3-TRUNK
 	 */ 		
-	public function readcomments($id){
+	function readcomments($id){
 		global $redis, $tpl, $textile;
 
 		$comments = $redis->keys('slight.comments.'.$id.'.*');
@@ -59,7 +59,7 @@
 	 * @since starlight-0.1.4-TRUNK
 	 * @todo Make sure this function uses the ID of a post, not the slug
 	 */
-	public function add_comment($slug) {
+	function add_comment($slug) {
 		global $redis;
 		if(!$_POST) {
 			header("Location: ?");
