@@ -21,7 +21,7 @@
 		
 		plugin_trigger_event('before_routing_function');
 		
-		$v = explode("/",(isset($_GET['sFunc']) ? $_GET['sFunc'] : null)); # Here we will seperate page and the number
+		$v = explode("/",(isset($_GET['f']) ? $_GET['f'] : null)); # Here we will seperate page and the number
 		switch($v[0]){ # Switchboard for the functions in which we will call localized functions
 			case 'page': 
 				require _PATH_ . '/functions/agon_page.php';
