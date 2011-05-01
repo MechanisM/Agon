@@ -15,21 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	function _c($a) {
-		global $redis;
-		return $redis->get($a);
-	}
-	function _i($a,$b) {
-		global $redis;
-		return $redis->lindex($a,$b);
-	}
-	function gS($s) {
-		return _c("slight.slug.".$s);
-	}
-	function gC($i){
-		global $s;
-		$s->readcomments($i);
-	}
 	function agon() {
 		
 		check_db_integrity();
