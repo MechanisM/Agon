@@ -11,9 +11,7 @@
 		return _c("slight.slug.".$s);
 	}
 	function gC($i){
-		global $s;
-		//TODO Fix
-		$s->readcomments($i);
+		readcomments($i);
 	}
 	
 	function meta2obj($arr) {
