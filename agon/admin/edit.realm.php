@@ -60,7 +60,6 @@
         }
     } else if (isset($_GET['id'])) {
         $id = (int) $_GET['id'];
-        echo "Second";
 
         if (is_int($id)) {
             $title = $redis->lindex('slight.post.' . $id, 2);
