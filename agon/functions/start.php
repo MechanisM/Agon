@@ -36,7 +36,6 @@
 				show_static_page($v[1]);
 			break;
 			case 'comment':
-				require _PATH_ . '/functions/agon_comments.php';
 				add_comment($v[1]);
 			break;
 			case 'rss' :
