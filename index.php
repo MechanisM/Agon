@@ -23,5 +23,6 @@
     require 'config.php';
     require 'agon/kickstarter.php';
 	
-	
+    agon();
+
 ?>

@@ -31,7 +31,4 @@
 	$redis = new Predis_Client($single_server);			# Start the Redis connection
 	$tpl = new Savant3();									
 	$textile = new Textile();
-	
-	agon();
-
 ?>
