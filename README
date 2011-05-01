@@ -1,4 +1,5 @@
 Agon is a blogging platform that uses Redis as the method for soting data.
+    (Agon is the release name, Starlight is the develoment name.)
 
 Why Redis?
 ---------
