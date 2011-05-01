@@ -67,8 +67,8 @@
 				<div id='header' class='c2'>
 					<div class='col'>
 						<ul id='nav'>
-							<li class='on'><a href="?a=exhibits">Content</a></li>
-							<li class='off'><a href="?a=stats">Comments</a></li>
+							<li class='on'><a href="?">Content</a></li>
+							<li class='off'><a href="?f=comments">Comments</a></li>
 						</ul>
 					</div>
 					<div class='col right'> 
