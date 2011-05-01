@@ -1,23 +1,51 @@
-Introduction
-------------
-Starlight is a blogging platform that uses Redis as a database.
+Agon is a blogging platform that uses Redis as the method for soting data.
 
-Server Requirements
-----------
-Php 5.2.6+ (5.3 is recommended)
-Redis 2.* (Not tested on 1.3 branch)
+Why Redis?
+---------
+Redis is an extreamly fast database that runs from memory. Knowing this, I wanted
+to make a blogging software that was lightweight, not only in it's code, but also
+the software that it runs on.
 
-Todo
-----------
-*Rewrite Code Base
-*Rss Feeds
-*Rewrite Theme engine
-*Add clean urls
-*URL tracebacks
-*Improve Install script
-*Comments
-**Moderation
-***Ban IP
-***Ban Keywords
-**Email Notifications
-**Word Filter
+Requirements
+---------
+I built this on Redis 2.0.4 and Redis 2.2.2, but it should work on all versions.
+PHP 5.2+ is required (for Predis), but PHP 5.3 is recommended (Built on 5.3.6-8)
+Any web server will work, I'll write the rewrite rules for Lighttpd, Apache2,
+Cherokee
+
+Install
+---------
+First, you need Redis installed. I will not tell you how do to that
+    *cough*apt-get install redis-server*cough*
+Upload the files to any directory to your server, and make sure config.php is
+    writeable by the server and php
+Navigate to the url, and you will be redirected to the install script
+    Please note, right now, the install script does not work. Sorry :(
+
+
+Copyright
+---------
+
+Copyright (c) 2011 Colum McGaley <c.mcgaley@gmail.com>. 
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+If you want to help, hit me up at c.mcgaley@gmail.com
