@@ -20,13 +20,13 @@ include '../config.php';
 include 'kickstarter.php';
 
 if(!s_admin)
-    fail("The Admin has been hard disabled","hardAdminDisabled",'503 Service Unavailable');
+    log_error("The Admin has been hard disabled","hardAdminDisabled",1);
 
 if (!isset($_SESSION['s.admin'])) {
     if($_POST) {
         $u = $redis->lrange('slight.config.users',0,2);
         if ($_POST['uid'] != $u[0] or md5($_POST['pwd']) != $u[1]) {
-            fail("Invalid login information","AdminInvalidInfo");
+            log_error("Invalid login information","AdminInvalidInfo",1);
 	} else {
             $_SESSION['s.admin'] = true;
             header("Location: ?");
