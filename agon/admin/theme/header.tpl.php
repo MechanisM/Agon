@@ -3,7 +3,7 @@
 	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-			<title>indexhibit</title>
+			<title>Agon - <?php echo codebase_version; ?></title>
 			<link type='text/css' rel='stylesheet' href='admin/theme/css/style.css' />
 			<script type="text/javascript" src='admin/theme/mootools.js'></script>
 			<script type="text/javascript" src='admin/theme/mootools-more.js'></script>
@@ -14,12 +14,11 @@
 				 		show: function() {
 							this.setStyle('display','');
 						},
-						    //implement hide
-						    hide: function() {
-						      this.setStyle('display','none');
-						    }
-						  });
-					  
+						//implement hide
+						hide: function() {
+							this.setStyle('display','none');
+						}
+					});
 					if($('add-page')) {
 						var addpageslide = new Fx.Slide('add-page').hide();
 						$('toggle-pform').addEvent('click',function(e){
