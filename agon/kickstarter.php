@@ -19,6 +19,7 @@
 	define('AGON_DEBUGGING', 3); # 3 = Show all errors, 2 = Show debugging errors, 1 = Show critical Errors only
 	
 	require_once _PATH_ . "/functions/agon_db_integrity.php";
+	require_once _PATH_ . "/functions/agon_functions.php";        
 	require_once _PATH_ . "/functions/agon_error.php";
 	require_once _PATH_ . "/functions/agon_plugins.php";
 	require_once _PATH_ . "/functions/agon_comments.php";
