@@ -15,26 +15,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	function show_post($num) {
-		global $redis, $tpl, $textile;
+	function get_post_meta($id) {
+		global $redis;
+		if($redis->exists('agon.'.$id)) {
+			return $redis->hgetall('agon.'.$id);
+		} else {
+			return false;
+		}
+	}
+	
+	function show_post($id) {
+		global $tpl, $textile;
 		
 		plugin_trigger_event('post_before_load');
 
-		$id = $redis->get('slight.slug.' . $num);
+		$meta = get_post_meta($id);
+		if(!$meta)
+			die('404, page not found. '.$id);
+		
 		$tpl->id = $id;
-		$tpl->slug = $num;
-		$tpl->title = $redis->lindex('slight.post.' . $id, 2);
-		$tpl->date = $redis->lindex(('slight.post.' . $id), 3);
-		$tpl->class = $redis->lindex('slight.post.' . $id, 10);
+		$tpl->slug = $_GET['f'];
+		$tpl->title = $meta['title'];
+		$tpl->date = $meta['timestamp'];
+		//$tpl->pclass = $meta['class'];
 
-		if ($redis->lindex(('slight.post.' . $id), 8) == '1')
-			$tpl->body = $textile->TextileThis($redis->lindex(('slight.post.' . $id), 5));
+		if (s('markdown') == 'textile')
+			$tpl->body = $textile->TextileThis($meta['content']);
 		else
-			$tpl->body = $redis->lindex(('slight.post.' . $id), 5);
+			$tpl->body = $meta['content'];
 		
 		plugin_trigger_event('page_before_template');
 
-		$tpl->display("agon/templates/" . $redis->get('slight.config.template') . "/post.tpl.php");
+		$tpl->display("agon/templates/" . s('template') . "/post.tpl.php");
 		
 		plugin_trigger_event('post_after_load');
 	}
