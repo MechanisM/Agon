@@ -20,7 +20,7 @@ $info->date The date of the post
 -->
 <div id="post-">
 <h2 class="entry-title">
-<a href="?f=post/<?php echo $info->slug; ?>" title="Permalink to <?php echo $info->title; ?>" rel="bookmark"><?php echo $info->title; ?></a>
+<a href="?f=<?php echo $info->slug; ?>" title="Permalink to <?php echo $info->title; ?>" rel="bookmark"><?php echo $info->title; ?></a>
 </h2>
 <div class="entry-meta">
 <span class="meta-prep meta-prep-author">By </span><span class="author vcard"><a class="url fn n">Colum</a></span><span class="meta-sep meta-sep-entry-date"> | </span><span class="meta-prep meta-prep-entry-date">Published: </span><span class="entry-date"><abbr class="published"><?php echo $info->date; ?></abbr></span>
