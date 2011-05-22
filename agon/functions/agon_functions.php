@@ -20,15 +20,38 @@
     * @global $redis The Database connection
     * @param string $setting The setting to retreave
     */
-    function _( $setting ) {
-        
+    function s( $setting ) {
+        global $redis;
+        $r = $redis->hget('agon.config', $setting);
+        if(!$r)
+            echo "Error in retreaving the requested setting ($setting)";
+        else
+            return $r;
     }
     
     function __( $code ) {
+        $lang = _('curr_lang'); # Get the current language
+        require_once _PATH_ . '/lang/' . $lang . '.php'; # Include it
         
+        if ( !isset($l) ) # Check if we have the $l variable, which is the wrapper
+            echo "Malformed Language File. Please reinstall";
+        else if ( !isset($l[$code]) ) # Check if we have the code
+            echo "Malformed Language File or Malformed Language code. Please reinstall";
+        else # Return said code
+            return $l[$code];
     }
     
     function process_url( $url ) {
-        global $redis;  
+        global $redis;
+        $u = $redis->hget('agon.url_layout', $url);
+        if(!$u) {
+            var_dump($u, $url, $redis->hgetall('agon.url_layout'));
+        }
+        else {
+            $j = explode( ':', $u);
+            $j[] = $u;
+            return $j; # [0] => function (s = static page, p = post) [1] = ID
+        }
     }
+    function agon(){}
 ?>
