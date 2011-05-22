@@ -25,7 +25,7 @@
 
 		$c = count($post);
 		for ($i = 0; $i < $c; $i++) {
-			if ($redis->lindex($post[$i], 9) == 'false')
+			if ($redis->hget($post[$i], 'publish') == 'false')
 				unset($post[$i]);
 		}
 		if ($limit == 1) {
@@ -44,7 +44,7 @@
 			(($num * $limit) < count($post) ? true : false), # Back
 			($num > 1 ? true : false) # Next?
 		);
-		$tpl->display("agon/templates/" . $redis->get('slight.config.template') . "/page.tpl.php");
+		$tpl->display("agon/templates/" . s('template') . "/page.tpl.php");
 		
 		plugin_trigger_event('page_after_load');
 	}
