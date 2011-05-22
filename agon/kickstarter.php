@@ -39,12 +39,12 @@
         
         $d = process_url($v); # We query for the URL info. We should get an array
         if(!is_array($d))
-            die(404);
+            die("404 ".var_dump($d));
         
         switch($d[0]) {
             case 'page': 
 		require _PATH_ . '/functions/agon_page.php';
-	    	show_page($d[2]);
+	    	show_page($d[1]);
 	    break;
 	    case 'p':
 		require _PATH_ . '/functions/agon_post.php';
