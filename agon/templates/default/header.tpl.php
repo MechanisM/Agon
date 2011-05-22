@@ -10,8 +10,8 @@
         <div id="wrapper" class="hfeed">
             <div id="header">
                 <div id="branding">
-                    <div id="blog-title"><span><a href="http://themeshaper.com/demo/thematic/" title="<?php echo _c("slight.config.name"); ?>" rel="home"><?php echo _c("slight.config.name"); ?></a></span></div>
-                    <h1 id="blog-description"><?php echo _c("slight.config.desc"); ?></h1>
+                    <div id="blog-title"><span><a href="http://themeshaper.com/demo/thematic/" title="<?php echo s("site_title"); ?>" rel="home"><?php echo s("site_title"); ?></a></span></div>
+                    <h1 id="blog-description"><?php echo s("site_description"); ?></h1>
                 </div><!--  #branding -->
                 <div id="access">
                     <div class="menu">
