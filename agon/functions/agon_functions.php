@@ -45,7 +45,10 @@
         global $redis;
         $u = $redis->hget('agon.url_layout', $url);
         if(!$u) {
-            var_dump($u, $url, $redis->hgetall('agon.url_layout'));
+            if( $url == null or $url == "")
+                return array('page', 1);
+            else
+                return false;
         }
         else {
             $j = explode( ':', $u);
