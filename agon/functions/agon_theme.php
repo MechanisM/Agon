@@ -16,12 +16,13 @@
 	
 	function meta2obj($arr) {
 	        global $redis;
-	        return (object) array( 'id' => _i($arr,0),
-	                                'slug' => _i($arr,1),
-	                                'title' => _i($arr,2),
-	                                'date' => _i($arr,3),
-	                                'author' => _i($arr,4),
-	                                'body' => truncate(_i($arr,5),((int)$redis->get('slight.config.trim'))),
+		$v = $redis->hgetall($arr);
+	        return (object) array( 'id' => 		$v['id'],
+	                                'slug' => 	$v['full_url'],
+	                                'title' =>	$v['title'],
+	                                'date' => 	$v['timestamp'],
+	                                'author' => 	'Admin',
+	                                'body' => 	truncate($v['content'],((int)1000)),
 	                             );
 	}
 
