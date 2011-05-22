@@ -20,8 +20,8 @@
 		
 		plugin_trigger_event('page_before_load');
 
-		$post = $redis->keys('slight.post.*');
-		$limit = $redis->get("slight.config.list"); # The number to show per page
+		$post = $redis->keys('agon.p:*');
+		$limit = s('posts_per_page'); # The number to show per page
 
 		$c = count($post);
 		for ($i = 0; $i < $c; $i++) {
