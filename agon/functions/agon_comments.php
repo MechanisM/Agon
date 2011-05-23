@@ -61,7 +61,7 @@
 	 * @since starlight-0.1.4-TRUNK
 	 * @todo Make sure this function uses the ID of a post, not the slug
 	 */
-	function add_comment($slug) {
+	function add_comment($id) {
 		global $redis;
 		if(!$_POST) {
 			header("Location: ?");
@@ -76,16 +76,15 @@
 		if($_POST['human'] != '5') { # 2 + 3
 			die("You are not human");
 		}
-		$comments = $redis->keys('slight.comments.'.$slug.'.*');
-		$r = count($comments);
-		$d = ($redis->lindex($comments[($r - 1)],0)) + 1;
-
-		$redis->rpush('slight.comments.'.$slug.'.'.$d,$d);
-		$redis->rpush('slight.comments.'.$slug.'.'.$d,$_POST['author']); //TODO Add removal of tags
-		$redis->rpush('slight.comments.'.$slug.'.'.$d,'date');
-		$redis->rpush('slight.comments.'.$slug.'.'.$d,$_POST['email']);
-		$redis->rpush('slight.comments.'.$slug.'.'.$d,$_POST['comment']); //TODO Add removal of tags
-		header("Location: ?f=post/".$slug);			
+		$comments = $redis->keys('agon.'.$id.'.c:*');
+		$cid = count($comments) + 1;
+		
+		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'name', $_POST['author']);
+		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'email', $_POST['email']);
+		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'content', $_POST['content']);
+		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'timestamp', 'TIMESTAMP'); // Todo, TIMESTAMP
+		
+		header("Location: ?f=".$id[2]);			
 	}
 	function get_gravatar( $email, $img = false, $s = 80, $d = 'mm', $r = 'g', $atts = array() ) {
 		$url = 'http://www.gravatar.com/avatar/';
