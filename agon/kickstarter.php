@@ -55,7 +55,7 @@
         	show_static_page($d[2]);
             break;
             case 'comment':
-                add_comment($d[2]);
+                add_comment($d);
 	    break;
 	    case 'rss' :
 		$this->makerss();		
