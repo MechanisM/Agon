@@ -25,31 +25,33 @@
 	function readcomments($id){
 		global $redis, $tpl, $textile;
 
-		$comments = $redis->keys('slight.comments.'.$id.'.*');
-
-		if($redis->get('slight.config.comment-list') == 'true') # We allow the user to change the order
-			$comments = array_reverse($comments);
+		$comments = $redis->keys('agon.'.$id.'.c:*'); # We get all the keys that are comments to this post
+		sort($comments);
+		
+		//if($redis->get('slight.config.comment-list') == 'true') # We allow the user to change the order
+		//	$comments = array_reverse($comments);
 
 		for($i = 0; $i < count($comments); $i++){
 			$tpl->$i = (object) true; # We just need something to tell the object is an object, so we dont get errors below
 			$tpl->$i->num   = $i; # Comment number
 
-			$tpl->$i->name  = $redis->lindex($comments[$i],1);
-			$tpl->$i->date  = $redis->lindex($comments[$i],2);
-			$tpl->$i->email = $redis->lindex($comments[$i],3);
+			$u = $redis->hgetall($comments[$i]);
+			$tpl->$i->name  = $u['name'];
+			$tpl->$i->date  = $u['timestamp'];
+			$tpl->$i->email = $u['email'];
 			//TODO: Add website field
-			if($redis->get('slight.config.usetextile') == '1') {
+			if(s('markdown') == '1') {
 				if(!class_exists($textile)) {
 					echo "Textile not loaded. This is a bug...";
 				} else {
-					$tpl->$i->body  = $textile->TextileThis($redis->lindex($comments[$i],4));	
+					$tpl->$i->body  = $textile->TextileThis($u['content']);	
 				}
 			} else {
-				$tpl->$i->body  = strip_tags($redis->lindex($comments[$i],4));
+				$tpl->$i->body  = strip_tags($u['content']);
 			}
 		}
 		$tpl->max = $i;
-		$tpl->display("agon/templates/".$redis->get('slight.config.template')."/comments.tpl.php");
+		$tpl->display("agon/templates/".s('template')."/comments.tpl.php");
 	}
 	/**
 	 * Fuunction to add a comment to a post
