@@ -20,13 +20,18 @@
     * @global $redis The Database connection
     * @param string $setting The setting to retreave
     */
+    $s_cache_use = false;
+    $s_cache_data = null;
     function s( $setting ) {
-        global $redis;
-        $r = $redis->hget('agon.config', $setting);
-        if(!$r)
+        global $redis, $s_cache_use, $s_cache_data;
+        if($s_cache_use == false) {
+            $s_cache_use = true;
+            $s_cache_data = $redis->hgetall('agon.config');
+        }
+        if(!$s_cache_data[$setting])
             echo "Error in retreaving the requested setting ($setting)";
         else
-            return $r;
+            return $s_cache_data[$setting];
     }
     
     function __( $code ) {
