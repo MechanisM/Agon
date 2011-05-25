@@ -25,8 +25,10 @@
 	function readcomments($id){
 		global $redis, $tpl, $textile;
 
-		$comments = $redis->keys('agon.'.$id.'.c:*'); # We get all the keys that are comments to this post
+		$pid = process_url($id);
+		$comments = $redis->keys('agon.'.$pid[2].'.c:*'); # We get all the keys that are comments to this post
 		sort($comments);
+		
 		
 		//if($redis->get('slight.config.comment-list') == 'true') # We allow the user to change the order
 		//	$comments = array_reverse($comments);
