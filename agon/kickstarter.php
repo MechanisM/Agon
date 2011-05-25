@@ -33,12 +33,8 @@
 	require_once _PATH_ . "/functions/agon_comments.php";
 	require_once _PATH_ . "/functions/agon_theme.php";
 	
-	# Check the URL
-        //$x = explode("/",(isset($_GET['f']) ? $_GET['f'] : null));
-        $v = (isset($_GET['f']) ? $_GET['f'] : null);
-        
-        $d = process_url($v); # We query for the URL info. We should get an array
-        if(!is_array($d))
+        $d = process_url( (isset($_GET['f']) ? $_GET['f'] : null) ); # We query for the URL info. We should get an array
+        if(!is_array($d)) # process_function returns false when no page is found
             die("404 ".var_dump($d));
         
         switch($d[0]) {
@@ -54,9 +50,6 @@
                 require _PATH_ . '/functions/agon_static_page.php';
         	show_static_page($d[2]);
             break;
-            case 'comment':
-                add_comment($d);
-	    break;
 	    case 'rss' :
 		$this->makerss();		
 	    break;
