@@ -29,7 +29,6 @@
 		$comments = $redis->keys('agon.'.$pid[2].'.c:*'); # We get all the keys that are comments to this post
 		sort($comments);
 		
-		
 		//if($redis->get('slight.config.comment-list') == 'true') # We allow the user to change the order
 		//	$comments = array_reverse($comments);
 
@@ -83,7 +82,7 @@
 		
 		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'name', $_POST['author']);
 		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'email', $_POST['email']);
-		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'content', $_POST['content']);
+		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'content', $_POST['comment']);
 		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'timestamp', 'TIMESTAMP'); // Todo, TIMESTAMP
 		
 		header("Location: ../?f=".$_GET['slug']);			
