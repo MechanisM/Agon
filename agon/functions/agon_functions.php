@@ -34,16 +34,16 @@
             return $s_cache_data[$setting];
     }
     
-    function __( $code ) {
+    function __( $realm, $code ) {
         $lang = _('curr_lang'); # Get the current language
         require_once _PATH_ . '/lang/' . $lang . '.php'; # Include it
         
         if ( !isset($l) ) # Check if we have the $l variable, which is the wrapper
             echo "Malformed Language File. Please reinstall";
-        else if ( !isset($l[$code]) ) # Check if we have the code
+        else if ( !isset($l[$realm][$code]) ) # Check if we have the code
             echo "Malformed Language File or Malformed Language code. Please reinstall";
         else # Return said code
-            return $l[$code];
+            return $l[$realm][$code];
     }
     
     function process_url( $url ) {
