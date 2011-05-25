@@ -68,13 +68,13 @@
 		}
 
 		if(trim($_POST['author']) == "" or trim($_POST['email']) == "" or trim($_POST['comment']) == "" or trim($_POST['human']) == "") {
-			die("One of the required fields was not filled in");
+			die(__('error', 'empry_field'));
 		}	
 			if(!eregi("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $_POST['email'])){
-				die("Invalid Email");
+				die(__('error', 'invalid_email'));
 			}
 		if($_POST['human'] != '5') { # 2 + 3
-			die("You are not human");
+			die(__('error', 'invalid_human'));
 		}
 		$comments = $redis->keys('agon.'.$id.'.c:*');
 		$cid = count($comments) + 1;
