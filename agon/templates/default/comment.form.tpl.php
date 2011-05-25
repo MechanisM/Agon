@@ -2,7 +2,7 @@
     <div id="respond">
         <h3>Post a Comment</h3>    				
         <div class="formcontainer">	
-            <form id="commentform" action="?f=comment/<?php echo $this->slug; ?>" method="post">
+            <form id="commentform" action="/agon/add_comment.php?slug=<?php echo $this->slug; ?>" method="post">
                 <p id="comment-notes">Your email is <em>never</em> published nor shared. Required fields are marked <span class="required">*</span></p>
                 <div id="form-section-author" class="form-section">
                     <div class="form-label"><label for="author">Name</label> <span class="required">*</span></div>
