@@ -22,7 +22,7 @@
 	 * @param string $slug
 	 * @since starlight-0.0.3-TRUNK
 	 */
-	public function showstatic($slug) {
+	function showstatic($slug) {
 		global $redis, $textile, $tpl;
 		$page = $redis->lrange("slight.page.".$slug,0,4);
 
