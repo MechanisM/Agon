@@ -84,7 +84,7 @@
 		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'content', $_POST['content']);
 		$redis->hset('agon.p:'.$id[1].'.c:'.$cid, 'timestamp', 'TIMESTAMP'); // Todo, TIMESTAMP
 		
-		header("Location: ?f=".$id[2]);			
+		header("Location: ../?f=".$_GET['slug']);			
 	}
 	function get_gravatar( $email, $img = false, $s = 80, $d = 'mm', $r = 'g', $atts = array() ) {
 		$url = 'http://www.gravatar.com/avatar/';
