@@ -19,149 +19,98 @@
 
 	// turn this on if you want to check things
 	//error_reporting(E_ALL);
-
-// Update your values here. Going to do this a better way next release
-define('R_HOST', '127.0.0.1');
-define('R_PORT', 6379);
-define('R_DATA', 0);
-
-    // Update this file every release
-    define('VERSION', '0.3.2');
-
-	//require_once 'defaults.php';
-	$s = array (
-        'slight.config.name' => 'Starlight Testing',
-        'slight.config.desc' => 'This is a test of the starlght blogging system',
-        'slight.config.template' => 'Default',
-        'slight.config.list' => '5',
-        'slight.config.comment-list' => 'true'
-    );
-    
-    
-	function writeConfig( $host, $port, $database, $password )
-	{
-		$config = dirname(__FILE__) . "/config.php";
+	session_start();
+	define('codebase_version', 'agon-0.2.1-dev'); # This should match kickstarter
+	
+	
+	if($_POST['step'] == '1') { # We are processing data from Step 1
+		$d = array();
+		//var_dump($_POST);
+		if( $_POST['Host'] == "" ) $d['host'] = '127.0.0.1';
+			else $d['host'] = $_POST['Host'];
+		if( $_POST['Database'] == "" ) $d['database'] = '0';
+			else $d['database'] = $_POST['Database'];
+		if( $_POST['pwd'] == "" ) $d['password'] = '';
+			else $d['password'] = $_POST['pwd'];
 		
-		$somecontent = "
-<?php
-    define(\"s_version\", ".VERSION.");
-	define(\"s_release\", true); # Set to false for develoment
-	define(\"s_admin\", true); # Set to false to disable the admin
-	define(\"_PATH_\", dirname(__FILE__).'/starlight');
-	
-	\$single_server = array(
-    	'host'     => '".$host."', 
-    	'port'     => ".$port.", 
-    	'database' => '".$database."',
-		#'password' => '".$password."'
-	);
-?>";
-
-		if (is_writable($path)) 
-		{
-			if (!$handle = fopen($filename, 'w')) 
-			{
-				return FALSE;
+		# Start building config file
+		$s = "<?php\n";
+		$s .= "define('s_release', false); # Set to false for develoment\n";
+		$s .= "define('s_admin', true); # Set to false to disable the admin\n";
+		$s .= "define('_PATH_', dirname(__FILE__).'/agon');\n";
+		
+		if( $_POST['sd'] == 'on' ) {
+			if(!class_exists('Redis'))
+				die('PHP Redis not found. Please uncheck use "PHP Redis"');
+			
+			$redis = new Redis();
+			if(!$redis->connect($d['host'], 6379, 10)) # Try the connection
+				die('Can not connect to the database running on '.$d["host"].':6379. Please check your connection settings and your filewall.');
+			
+			if($d['password']) {
+				if(!$redis->auth($d['password']))
+					die('Can not connect with the provided password');
 			}
-
-			if (fwrite($handle, $somecontent) === FALSE) 
-			{
-				return FALSE;
+			
+			if(!$redis->select($d['database']))
+				die('Can not select the database');
+				
+			# We have a connection
+			$s .= "$redis = new Redis();\n";
+			$s .= "$redis->connect(".$d['host'].", 6379, 10);\n";
+			if($d['password'])
+				$s .= "	$redis->auth('".$d['password']."');\n";
+			$s .= "$redis->select(".$d['database'].");\n";
+		} else {
+			try {
+				new Predis_Client(array(
+	    			'host'     => $d['host'], 
+	    			'database' => $d['database'],
+					'password' => $d['password']
+				));
+			} catch (Exception $e) {
+				die("Execption caught: ".$e->getMessage());
 			}
-
-			fclose($handle);
-			return TRUE;
+			$s .= "require_once _PATH_ . '/classes/predis/Predis.php';\n";
+			$s .= "$redis   = new Predis_Client(array(\n";
+			$s .= "'host'     => '".$d['host']."', \n";
+			$s .= "'database' => ".$d['database'].",\n";
+			if($d['password'])
+				$s .= "'password' => '".$d['password']."',\n";
+			$s .= "));\n";
 		}
+		
+		// Write Config
+		$myFile = "testFile.txt";
+		$fh = fopen("../../config.php", 'w') or die("Can't open config.php for writing");
 
-		return FALSE;
+		fwrite($fh, $stringData);
+		fclose($fh);
+		require 'step2.tpl.php';
+	} else if($_POST['step'] == '2') {
+	
+		$err = array();
+		$data = array();
+		if ($_POST['blogname'] == "" or count($_POST['blogname']) < 6) $err[] = "Invalid Blog Name";
+			else $data['blogname'] = $_POST['blogname'];
+		if ($_POST['blogdesc'] == "" or count($_POST['blogdesc']) < 6) $err[] = "Invalid Blog Description";
+			else $data['blogdesc'] = $_POST['blogdesc'];
+		if ($_POST['uid'] == "" or count($_POST['uid']) < 6) $err[] = "Invalid Admin Username";
+			else $data['username'] = $_POST['uid'];
+		
+		list($username,$domain) = split('@',$_POST['email']);
+		
+		if ($_POST['email'] == "" or !checkdnsrr($domain,'MX')) $err[] = "Invalid Email";
+			else $data['emai;'] = $_POST['email'];
+		if ($_POST['pwd'] == "" or count($_POST['pwd']) < 6) $err[] = "Invalid Password";
+			else $data['password'] = $_POST['pwd'];
+		
+		if(count($err > 0))
+			die(var_dump($err));
+		else {
+			require '../config.php';
+		}
+	} else { # Display the 1st page
+		require 'step1.tpl.php';
 	}
 	
-	header ('Content-type: text/html; charset=utf-8');
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-<title>Install : starlight</title>
-
-<link type="text/css" rel='stylesheet'  href="asset/css/style.css" />
-	
-<style type='text/css'>
-body { font-family: Arial, Helvetica, Verdana, sans-serif; font-size: 10px; }
-h1, h2 { margin: 6px 0 0 3px; }
-h2 { margin-bottom: 6px; }
-p { margin: 0 0 6px 3px; font-size: 12px; width: 300px; }
-p.red { color: #c00; }
-code { margin: 18px 0; font-size: 12px; }
-.ok { color: #0c0; padding-right: 9px; }
-.ok-not { color: #f00; padding-right: 9px; }
-#footer { border-top: none; }
-#log-form { margin-left: 3px; }
-</style>
-</head>
-
-<body>
-<div id='all'>
-
-<h1>Indexhibit</h1>
-
-<div id='main'>
-
-<form action='' method='post'>
-	
-<?php
-
-	if ((is_writable('./config.php')))
-	{
-		$c = true;
-		echo "<p><span class='ok'>OK</span>Config Writeable</p>\n";
-        $redis = new Predis_Client(array(
-		    'host'     => $s['host'],
-		    'password' => $s['password'], 
-		    'database' => $s['database'], 
-		));
-		# Because Predis does not thorw an error when the class is created
-		# We can check because this command will return an array if true
-		# String if it is false
-		$cmdSet = $redis->createCommand('keys');
-		$cmdSet->setArguments('*');
-		@$cmdGetReply = $redis->executeCommand($cmdSet);
-		if(!is_array($cmdGetReply))
-			echo "<p><span class='ok'>XX</span>Database not accessable</p>\n";
-        else {
-            if(writeConfig(R_HOST, R_PORT, R_DATA, null)) {
-                echo "<p><span class='ok'>OK</span>Config Written</p>\n";
-                $redis->mset($s);
-                $redis->rpush('slight.config.users','admin');
-                $redis->rpush('slight.config.users','5f4dcc3b5aa765d61d8327deb882cf99'); # Password, is password
-                echo "<p><span class='ok'>OK</span>Database Written</p>\n";
-                echo "<p>Admin login is at /starlight. Username is 'admin' and the password is 'password'";
-              
-                
-            } else {
-                echo "<p><span class='ok'>XX</span>Config Write error</p>\n";
-            }
-        }
-	}
-	else
-	{
-		echo "<p><span class='ok-not'>XX</span>Config not Writeable</p>";
-	}
-?>
-</form>
-
-<div class='cl'><!-- --></div>
-
-</div>
-
-<div id='footer' class='c2'>
-	<div class='col'><a href='<?php echo BASEURL.BASENAME ?>/license.txt'>License</a></div>
-	<div class='cl'><!-- --></div>
-</div>
-	
-</div>
-</body>
-</html>
